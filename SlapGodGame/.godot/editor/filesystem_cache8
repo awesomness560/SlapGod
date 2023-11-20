@@ -1,3 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1700446496
+::res://::1700498315
+CursorManager.gd::GDScript::-1::1700454642::0::1::::<>CanvasLayer<>::
 icon.svg::CompressedTexture2D::895201046242450244::1700446493::1700446497::1::::<><>::
+::res://Scenes/::1700455785
+CharacterBody2D.gd::GDScript::-1::1700455707::0::1::::<>CharacterBody2D<>::
+Circle.tscn::PackedScene::1917445082768476827::1700455766::0::1::::<><>::uid://c8wy6h4f7633u::::res://Sprites/circle-512.png
+cursor_manager.tscn::PackedScene::2977290944367221144::1700455766::0::1::::<><>::res://CursorManager.gd<>uid://dvlmtgpf0jf7o::::res://Sprites/EmptyCursor.png<>uid://dt7siu0xooyui::::res://Sprites/Cursor.png
+RigidBody2D.gd::GDScript::-1::1700455440::0::1::::<>RigidBody2D<>::
+TestLevel.tscn::PackedScene::8294024138083407278::1700455785::0::1::::<><>::uid://2k3bmw0f43n0::::res://Scenes/Circle.tscn<>res://Scenes/CharacterBody2D.gd<>uid://dt7siu0xooyui::::res://Sprites/Cursor.png<>uid://dvlmtgpf0jf7o::::res://Sprites/EmptyCursor.png
+::res://Sprites/::1700454283
+circle-512.png::CompressedTexture2D::7136002498202003476::1700451902::1700451989::1::::<><>::
+Cursor.png::CompressedTexture2D::8560018450704282240::1700454237::1700454283::1::::<><>::
+EmptyCursor.png::CompressedTexture2D::8656698795343144602::1700453787::1700453790::1::::<><>::

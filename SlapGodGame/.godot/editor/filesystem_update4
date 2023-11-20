@@ -1,0 +1,7 @@
+res://Scenes/Circle.tscn
+res://Scenes/TestLevel.tscn
+res://Scenes/cursor_manager.tscn
+res://Scenes/CharacterBody2D.gd
+res://CursorManager.gd
+res://Scenes/Circle.gd
+res://Scenes/RigidBody2D.gd

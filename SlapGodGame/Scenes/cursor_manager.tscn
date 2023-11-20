@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://biohsuga3dfi3"]
+
+[ext_resource type="Script" path="res://CursorManager.gd" id="1_sijgq"]
+[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="2_go577"]
+[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="3_2uiol"]
+
+[node name="CursorManager" type="CanvasLayer"]
+script = ExtResource("1_sijgq")
+empty_cursor = ExtResource("2_go577")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.311321, 0.311321)
+texture = ExtResource("3_2uiol")
