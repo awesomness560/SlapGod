@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyaj37u0t2xfu"]
+
+[ext_resource type="Script" path="res://Scenes/MainHUD.gd" id="1_5vpgb"]
+
+[node name="MainHud" type="CanvasLayer"]
+script = ExtResource("1_5vpgb")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "0"

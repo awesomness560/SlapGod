@@ -1,7 +1,9 @@
 extends RigidBody2D
+signal scored
 
 var starting_position : Transform2D
 var screen_size
+var score : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,4 +13,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = position.clamp(Vector2.ZERO, screen_size)
+	#position = position.clamp(Vector2.ZERO, screen_size)
+	pass
+
+
+
+func _on_body_entered(body):
+	if body.is_in_group("Player"):
+		scored.emit()
