@@ -28,7 +28,6 @@ Slap={
 
 [physics]
 
-2d/physics_engine="Box2D"
 2d/default_linear_damp=0.0
 
 [rendering]

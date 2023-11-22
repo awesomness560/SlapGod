@@ -2,11 +2,5 @@ res://Scenes/Circle.tscn
 res://Scenes/TestLevel.tscn
 res://Scenes/cursor_manager.tscn
 res://Scenes/TestLevel2nd.tscn
-res://Scenes/CircleAlt.gd
-res://Scenes/CursorFollowRealCursor.gd
-res://Scenes/CursorSlap.gd
 res://Scenes/TestLevel3.tscn
-res://Scenes/Circleclick.gd
 res://Scenes/MainHUD.tscn
-res://Scenes/MainHUD.gd
-res://Code/Circle.gd

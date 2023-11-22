@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqfxmo3x3x70e"]
+[gd_scene load_steps=10 format=3 uid="uid://dqfxmo3x3x70e"]
 
 [ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="1_cxixw"]
-[ext_resource type="Script" path="res://Scenes/CircleAlt.gd" id="2_d4kgd"]
 [ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="2_ncvp6"]
 [ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="3_4g3ie"]
 [ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="3_io35a"]
-[ext_resource type="Script" path="res://smooth_move/smooth_move2D.gd" id="5_7gliq"]
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="7_4n12g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
@@ -13,6 +11,7 @@ size = Vector2(136, 1156)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67kf4"]
 bounce = 1.0
+absorbent = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
 absorbent = true
@@ -22,14 +21,14 @@ size = Vector2(52, 42)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Wall" type="StaticBody2D" parent="."]
+[node name="Wall" type="StaticBody2D" parent="." groups=["wall"]]
 position = Vector2(-10, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 position = Vector2(-58, 315)
 shape = SubResource("RectangleShape2D_bao77")
 
-[node name="Wall2" type="StaticBody2D" parent="."]
+[node name="Wall2" type="StaticBody2D" parent="." groups=["wall"]]
 position = Vector2(-20, 20)
 rotation = 1.5708
 
@@ -37,7 +36,7 @@ rotation = 1.5708
 position = Vector2(695.998, -597.002)
 shape = SubResource("RectangleShape2D_bao77")
 
-[node name="Wall3" type="StaticBody2D" parent="."]
+[node name="Wall3" type="StaticBody2D" parent="." groups=["wall"]]
 position = Vector2(-22, -651)
 rotation = 1.5708
 
@@ -45,7 +44,7 @@ rotation = 1.5708
 position = Vector2(584.998, -596.002)
 shape = SubResource("RectangleShape2D_bao77")
 
-[node name="Wall4" type="StaticBody2D" parent="."]
+[node name="Wall4" type="StaticBody2D" parent="." groups=["wall"]]
 position = Vector2(1165, 24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
@@ -59,13 +58,14 @@ gravity_scale = 0.3
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_d4kgd")
+mat = SubResource("PhysicsMaterial_67kf4")
 
 [node name="Cursor" type="RigidBody2D" parent="." groups=["Player"]]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_x106l")
 gravity_scale = 0.0
 lock_rotation = true
+continuous_cd = 2
 linear_damp = 20.0
 script = ExtResource("2_ncvp6")
 hit_force = 500.0
@@ -77,10 +77,7 @@ damping = 15
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_qo2xx")
 
-[node name="Smooth_Move2D" type="Node2D" parent="Cursor"]
-script = ExtResource("5_7gliq")
-
-[node name="Sprite2D" type="Sprite2D" parent="Cursor/Smooth_Move2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
 scale = Vector2(0.300314, 0.300314)
 texture = ExtResource("3_4g3ie")
 

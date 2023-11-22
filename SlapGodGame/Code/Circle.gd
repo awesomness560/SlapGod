@@ -1,31 +1,32 @@
 extends RigidBody2D
 signal scored
 
-var starting_position : Transform2D
-var screen_size
-var score : int = 0
 var entered : bool = true
 @export var max_speed = 100
+@export var mat : PhysicsMaterial
+var bounce : float
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	screen_size = get_viewport_rect().size
-	starting_position = transform
-
-
+	bounce = mat.bounce
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#position = position.clamp(Vector2.ZERO, screen_size)
-	pass
+	print("Absorbent: " + str(mat.absorbent))
+	print("Bounce: " + str(mat.bounce))
 
 
 
 func _on_body_entered(body):
 	if body.is_in_group("Player"):
-		if entered == true:
-			scored.emit()
-			entered = false
+		mat.bounce = 0
+		mat.absorbent = true
+		scored.emit()
+	elif body.is_in_group("wall"):
+		mat.bounce = bounce
 
 
 func _on_body_exited(body):
-	entered = true
+	if body.is_in_group("Player"):
+		await get_tree().create_timer(0.1).timeout
+		mat.absorbent = false
+		mat.bounce = bounce
