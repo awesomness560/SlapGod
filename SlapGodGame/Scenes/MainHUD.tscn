@@ -1,37 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://dyaj37u0t2xfu"]
+[gd_scene load_steps=25 format=3 uid="uid://dyaj37u0t2xfu"]
 
 [ext_resource type="Script" path="res://Scenes/MainHUD.gd" id="1_5vpgb"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_3hw3g"]
 [ext_resource type="Texture2D" uid="uid://crqj3umspe0nl" path="res://Sprites/FireWithStuff.png" id="3_tx6rd"]
 [ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="4_h2deo"]
-
-[sub_resource type="Animation" id="Animation_qmjo4"]
-resource_name = "ScoreShake2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0, 1, 0.0470588, 1), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_tprfo"]
 length = 0.001
@@ -88,6 +60,34 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.647059, 0, 0.0117647, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_qmjo4"]
+resource_name = "ScoreShake2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 0.0470588, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lxmc4"]
 _data = {
 "RESET": SubResource("Animation_tprfo"),
@@ -132,6 +132,21 @@ _data = {
 "RESET": SubResource("Animation_v0cb6")
 }
 
+[sub_resource type="Animation" id="Animation_qt0ly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(401, 1000)]
+}
+
 [sub_resource type="Animation" id="Animation_obqo2"]
 resource_name = "UpgradeMenu"
 length = 0.5
@@ -146,21 +161,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(401, 1000), Vector2(401, 140)]
-}
-
-[sub_resource type="Animation" id="Animation_qt0ly"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(401, 1000)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_li10i"]
@@ -197,33 +197,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0.729412, 0.156863, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_iine4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_450hb"]
 resource_name = "CostRed"
 length = 0.4
@@ -250,6 +223,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0.109804, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iine4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_03bu8"]
@@ -295,10 +295,50 @@ _data = {
 "RESET": SubResource("Animation_0fgph")
 }
 
+[sub_resource type="Animation" id="Animation_su3sb"]
+resource_name = "SpeedAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ewjlt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64t4o"]
+_data = {
+"RESET": SubResource("Animation_ewjlt"),
+"SpeedAnimation": SubResource("Animation_su3sb")
+}
+
 [node name="MainHud" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_5vpgb")
+speedDivider = 300.0
 
 [node name="Score" type="Control" parent="."]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -336,6 +376,7 @@ libraries = {
 }
 
 [node name="UpgradeMenu" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -529,6 +570,7 @@ libraries = {
 }
 
 [node name="AirTimeMultiplier" type="Label" parent="."]
+process_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -551,7 +593,28 @@ libraries = {
 "": SubResource("AnimationLibrary_jp8f8")
 }
 
+[node name="SpeedMultiplier" type="Label" parent="."]
+process_mode = 1
+offset_right = 373.0
+offset_bottom = 80.0
+pivot_offset = Vector2(230, 40)
+theme_override_colors/font_color = Color(0.639216, 0, 0.819608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 33
+text = "Speed Multiplier: 1.0x"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
+[node name="SpeedMultiAnimator" type="AnimationPlayer" parent="SpeedMultiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_64t4o")
+}
+
 [connection signal="pressed" from="UpgradeMenu/Upgrade Multiplier" to="." method="_on_upgrade_pressed"]
 [connection signal="pressed" from="UpgradeMenu/Upgrade Slaps" to="." method="_on_upgrade_slaps_pressed"]
+[connection signal="animation_finished" from="UpgradeMenu/MenuAnimator" to="." method="_on_menu_animator_animation_finished"]
 [connection signal="timeout" from="AirTimeMultiplier/Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AirTimeMultiplier/AirAnimation" to="." method="_on_air_animation_animation_finished"]

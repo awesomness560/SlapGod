@@ -1,4 +1,5 @@
 extends CanvasLayer
+signal paused(paused : bool)
 
 var score : int = 0
 var scoreTracker : int = 0
@@ -10,9 +11,11 @@ var slaps : int = 1
 @export var slapsMultiplier : float = 1.2
 @export var ball : RigidBody2D
 @export var airTimeMultiplierAddition : float = 0.2
+@export var speedDivider : float = 500
 var airTimeMultiplier : float = 1
 var multiplierCostStep : int = 0
 var bodies
+var speedMultiplier : float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,11 +28,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("Upgrade Menu") && menuOnScreen:
-		$UpgradeMenu/MenuAnimator.play_backwards("UpgradeMenu")
 		menuOnScreen = false
+		pause(false)
+		$UpgradeMenu/MenuAnimator.play_backwards("UpgradeMenu")
 	elif Input.is_action_just_pressed("Upgrade Menu") && !menuOnScreen:
-		$UpgradeMenu/MenuAnimator.play("UpgradeMenu")
 		menuOnScreen = true
+		$UpgradeMenu/MenuAnimator.play("UpgradeMenu")
+		pause(true)
 		
 	if ball.get_colliding_bodies().is_empty():
 		await $AirTimeMultiplier/Timer.timeout
@@ -41,7 +46,8 @@ func scored():
 	if scoreTracker > 1:
 		score -= slaps * multiplier
 		scoreTracker = 0
-	score += round((slaps * airTimeMultiplier) * multiplier)
+	var multipliers = airTimeMultiplier + speedMultiplier
+	score += round((slaps * multipliers) * multiplier)
 	$Score/ScoreLabel.text = str(score)
 	$Score/ScoreAnimator.play("ScoreShake2")
 	scoreTracker += 1
@@ -102,3 +108,16 @@ func _on_air_animation_animation_finished(anim_name):
 func _on_circle_air_time_fail():
 	airTimeMultiplier = 1
 	$AirTimeMultiplier.text = "Air Time Multiplier: " + str(airTimeMultiplier) + "x"
+
+func _on_circle_velocity(speed):
+	speedMultiplier = abs(snapped(speed.x / speedDivider, 0.1))
+	$SpeedMultiplier.text = "Speed Multiplier: " + str(speedMultiplier) + "x"
+	$SpeedMultiplier/SpeedMultiAnimator.play("SpeedAnimation")
+	await get_tree().create_timer(0.5).timeout
+	$SpeedMultiplier.text = "Speed Multiplier: 1.0x"
+	
+func pause(pause : bool):
+	paused.emit()
+	get_tree().paused = pause
+	get_parent().get_node("CanvasCursor").visible = pause
+	get_parent().get_node("Game/Cursor").visible = !pause

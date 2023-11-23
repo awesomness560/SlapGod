@@ -1,4 +1,5 @@
 AnimationPlayer
+Node
 Timer
 Label
 Sprite2D
@@ -11,4 +12,3 @@ Smooth_Move2D
 Camera2D
 RigidBody2D
 CollisionShape2D
-CharacterBody2D

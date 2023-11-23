@@ -1,6 +1,7 @@
 extends RigidBody2D
 signal scored
 signal airTimeFail
+signal velocity(speed : Vector2)
 
 var entered : bool = true
 @export var max_speed = 100
@@ -18,6 +19,8 @@ func _on_body_entered(body):
 		mat.bounce = 0
 		mat.absorbent = true
 		scored.emit()
+		velocity.emit(linear_velocity)
+		print(linear_velocity)
 	elif body.is_in_group("wall"):
 		mat.bounce = bounce
 		if body.is_in_group("floor"):

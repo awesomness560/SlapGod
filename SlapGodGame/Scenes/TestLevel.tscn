@@ -13,7 +13,6 @@ size = Vector2(136, 1156)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67kf4"]
 bounce = 1.0
-absorbent = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
 absorbent = true
@@ -23,79 +22,9 @@ size = Vector2(52, 42)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Wall" type="StaticBody2D" parent="." groups=["wall"]]
-position = Vector2(-10, 10)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(-58, 315)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall2" type="StaticBody2D" parent="." groups=["floor", "wall"]]
-position = Vector2(-20, 20)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
-position = Vector2(695.998, -597.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall3" type="StaticBody2D" parent="." groups=["wall"]]
-position = Vector2(-22, -651)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
-position = Vector2(584.998, -596.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall4" type="StaticBody2D" parent="." groups=["wall"]]
-position = Vector2(1165, 24)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
-position = Vector2(56, 307)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Circle" parent="." instance=ExtResource("1_cxixw")]
-position = Vector2(550, 280)
-physics_material_override = SubResource("PhysicsMaterial_67kf4")
-gravity_scale = 0.3
-continuous_cd = 2
-max_contacts_reported = 1
-contact_monitor = true
-mat = SubResource("PhysicsMaterial_67kf4")
-
-[node name="Cursor" type="RigidBody2D" parent="." groups=["Player"]]
-top_level = true
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_x106l")
-gravity_scale = 0.0
-lock_rotation = true
-continuous_cd = 2
-linear_damp = 20.0
-script = ExtResource("2_ncvp6")
-hit_force = 500.0
-empty_cursor = ExtResource("3_io35a")
-stiffness = 600
-damping = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_qo2xx")
-
-[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
-z_index = 2
-scale = Vector2(0.300314, 0.300314)
-texture = ExtResource("3_4g3ie")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Cursor"]
-layer = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Cursor/CanvasLayer"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_4g3ie")
-script = ExtResource("5_h8233")
-
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("7_4n12g")]
 multiplierCost = [10, 500, 1000]
-ball = NodePath("../Circle")
+ball = NodePath("../Game/Circle")
 
 [node name="FireBackground2" type="Sprite2D" parent="."]
 process_priority = -1
@@ -109,6 +38,83 @@ texture = ExtResource("6_h0o3g")
 region_enabled = true
 region_rect = Rect2(0, 0, 1500, 443.35)
 
-[connection signal="airTimeFail" from="Circle" to="MainHud" method="_on_circle_air_time_fail"]
-[connection signal="body_exited" from="Circle" to="Circle" method="_on_body_exited"]
-[connection signal="scored" from="Circle" to="MainHud" method="scored"]
+[node name="Game" type="Node" parent="."]
+
+[node name="Wall" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall"]
+position = Vector2(-58, 315)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall2" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
+position = Vector2(-20, 20)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall2"]
+position = Vector2(695.998, -597.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall3" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-22, -651)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall3"]
+position = Vector2(584.998, -596.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall4" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(1165, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall4"]
+position = Vector2(56, 307)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Circle" parent="Game" instance=ExtResource("1_cxixw")]
+position = Vector2(550, 280)
+physics_material_override = SubResource("PhysicsMaterial_67kf4")
+gravity_scale = 0.3
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+mat = SubResource("PhysicsMaterial_67kf4")
+
+[node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
+top_level = true
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_x106l")
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = 2
+linear_damp = 20.0
+script = ExtResource("2_ncvp6")
+hit_force = 500.0
+empty_cursor = ExtResource("3_io35a")
+stiffness = 600
+damping = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Cursor"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_qo2xx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
+z_index = 2
+scale = Vector2(0.300314, 0.300314)
+texture = ExtResource("3_4g3ie")
+
+[node name="CanvasCursor" type="CanvasLayer" parent="."]
+process_mode = 2
+layer = 6
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasCursor"]
+process_priority = 1
+top_level = true
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_4g3ie")
+script = ExtResource("5_h8233")
+
+[connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
+[connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
+[connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
+[connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
