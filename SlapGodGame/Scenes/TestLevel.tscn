@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqfxmo3x3x70e"]
+[gd_scene load_steps=12 format=3 uid="uid://dqfxmo3x3x70e"]
 
 [ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="1_cxixw"]
 [ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="2_ncvp6"]
 [ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="3_4g3ie"]
 [ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="3_io35a"]
+[ext_resource type="Script" path="res://Scenes/CanvasFollow.gd" id="5_h8233"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="6_h0o3g"]
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="7_4n12g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
@@ -28,7 +30,7 @@ position = Vector2(-10, 10)
 position = Vector2(-58, 315)
 shape = SubResource("RectangleShape2D_bao77")
 
-[node name="Wall2" type="StaticBody2D" parent="." groups=["wall"]]
+[node name="Wall2" type="StaticBody2D" parent="." groups=["floor", "wall"]]
 position = Vector2(-20, 20)
 rotation = 1.5708
 
@@ -61,6 +63,7 @@ contact_monitor = true
 mat = SubResource("PhysicsMaterial_67kf4")
 
 [node name="Cursor" type="RigidBody2D" parent="." groups=["Player"]]
+top_level = true
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_x106l")
 gravity_scale = 0.0
@@ -78,10 +81,34 @@ position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_qo2xx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cursor"]
+z_index = 2
 scale = Vector2(0.300314, 0.300314)
 texture = ExtResource("3_4g3ie")
 
-[node name="MainHud" parent="." instance=ExtResource("7_4n12g")]
+[node name="CanvasLayer" type="CanvasLayer" parent="Cursor"]
+layer = 2
 
+[node name="Sprite2D" type="Sprite2D" parent="Cursor/CanvasLayer"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_4g3ie")
+script = ExtResource("5_h8233")
+
+[node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("7_4n12g")]
+multiplierCost = [10, 500, 1000]
+ball = NodePath("../Circle")
+
+[node name="FireBackground2" type="Sprite2D" parent="."]
+process_priority = -1
+show_behind_parent = true
+visibility_layer = 2
+z_index = -2
+texture_repeat = 2
+position = Vector2(623.12, 323.557)
+scale = Vector2(0.963749, 1.46899)
+texture = ExtResource("6_h0o3g")
+region_enabled = true
+region_rect = Rect2(0, 0, 1500, 443.35)
+
+[connection signal="airTimeFail" from="Circle" to="MainHud" method="_on_circle_air_time_fail"]
 [connection signal="body_exited" from="Circle" to="Circle" method="_on_body_exited"]
 [connection signal="scored" from="Circle" to="MainHud" method="scored"]

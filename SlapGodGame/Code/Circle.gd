@@ -1,5 +1,6 @@
 extends RigidBody2D
 signal scored
+signal airTimeFail
 
 var entered : bool = true
 @export var max_speed = 100
@@ -9,10 +10,6 @@ var bounce : float
 
 func _ready():
 	bounce = mat.bounce
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	print("Absorbent: " + str(mat.absorbent))
-	print("Bounce: " + str(mat.bounce))
 
 
 
@@ -23,6 +20,8 @@ func _on_body_entered(body):
 		scored.emit()
 	elif body.is_in_group("wall"):
 		mat.bounce = bounce
+		if body.is_in_group("floor"):
+			airTimeFail.emit()
 
 
 func _on_body_exited(body):

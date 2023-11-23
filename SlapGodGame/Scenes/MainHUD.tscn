@@ -1,17 +1,557 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyaj37u0t2xfu"]
+[gd_scene load_steps=22 format=3 uid="uid://dyaj37u0t2xfu"]
 
 [ext_resource type="Script" path="res://Scenes/MainHUD.gd" id="1_5vpgb"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_3hw3g"]
+[ext_resource type="Texture2D" uid="uid://crqj3umspe0nl" path="res://Sprites/FireWithStuff.png" id="3_tx6rd"]
+[ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="4_h2deo"]
+
+[sub_resource type="Animation" id="Animation_qmjo4"]
+resource_name = "ScoreShake2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 0.0470588, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tprfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_80s1d"]
+resource_name = "ScoreReduction"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.647059, 0, 0.0117647, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxmc4"]
+_data = {
+"RESET": SubResource("Animation_tprfo"),
+"ScoreReduction": SubResource("Animation_80s1d"),
+"ScoreShake2": SubResource("Animation_qmjo4")
+}
+
+[sub_resource type="Animation" id="Animation_ugddr"]
+resource_name = "MultiplierUpgrade"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v0cb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ta8sp"]
+_data = {
+"MultiplierUpgrade": SubResource("Animation_ugddr"),
+"RESET": SubResource("Animation_v0cb6")
+}
+
+[sub_resource type="Animation" id="Animation_obqo2"]
+resource_name = "UpgradeMenu"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(401, 1000), Vector2(401, 140)]
+}
+
+[sub_resource type="Animation" id="Animation_qt0ly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(401, 1000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_li10i"]
+_data = {
+"RESET": SubResource("Animation_qt0ly"),
+"UpgradeMenu": SubResource("Animation_obqo2")
+}
+
+[sub_resource type="Animation" id="Animation_hn41j"]
+resource_name = "CostGreen"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0.729412, 0.156863, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iine4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_450hb"]
+resource_name = "CostRed"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0.109804, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03bu8"]
+_data = {
+"CostGreen": SubResource("Animation_hn41j"),
+"CostRed": SubResource("Animation_450hb"),
+"RESET": SubResource("Animation_iine4")
+}
+
+[sub_resource type="Animation" id="Animation_s67i2"]
+resource_name = "AirTimeFill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_constants/outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 85]
+}
+
+[sub_resource type="Animation" id="Animation_0fgph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_constants/outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jp8f8"]
+_data = {
+"AirTimeFill": SubResource("Animation_s67i2"),
+"RESET": SubResource("Animation_0fgph")
+}
 
 [node name="MainHud" type="CanvasLayer"]
 script = ExtResource("1_5vpgb")
 
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="Score" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 83.0
+offset_left = -128.5
+offset_right = 128.5
+offset_bottom = 98.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 60
-text = "0"
+pivot_offset = Vector2(127, 42)
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -52.0
+offset_right = 138.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 42)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 103
+text = "99"
+horizontal_alignment = 1
+
+[node name="ScoreAnimator" type="AnimationPlayer" parent="Score"]
+libraries = {
+"": SubResource("AnimationLibrary_lxmc4")
+}
+
+[node name="UpgradeMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 401.0
+offset_top = 1000.0
+offset_right = 751.0
+offset_bottom = 1400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenu"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = -10.0
+offset_right = 1135.0
+offset_bottom = 488.0
+rotation = 1.5708
+scale = Vector2(0.540611, 0.719979)
+texture = ExtResource("2_3hw3g")
+
+[node name="Upgrade Multiplier" type="Button" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06
+anchor_top = 0.087
+anchor_right = 0.391
+anchor_bottom = 0.207
+offset_top = 0.199997
+offset_right = 4.14999
+offset_bottom = 3.2
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 25
+text = "Upgrade"
+
+[node name="Upgrade Slaps" type="Button" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.611
+anchor_top = 0.443
+anchor_right = 0.954
+anchor_bottom = 0.57
+offset_left = 0.149994
+offset_top = -0.199539
+offset_right = 0.0999756
+offset_bottom = 0.000457764
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 25
+text = "Upgrade"
+
+[node name="Line" type="Sprite2D" parent="UpgradeMenu"]
+texture_repeat = 2
+position = Vector2(179, 201)
+scale = Vector2(0.122543, 0.138428)
+texture = ExtResource("3_tx6rd")
+region_enabled = true
+region_rect = Rect2(317.965, 0, 390.133, 3024.26)
+
+[node name="MultiplierLabel" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.649
+anchor_top = 0.02
+anchor_right = 0.923
+anchor_bottom = 0.102
+offset_left = -0.150024
+offset_right = -5.05002
+offset_bottom = 0.199997
+theme_override_colors/font_color = Color(0.901961, 0.294118, 0.235294, 1)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 24
+text = "Multiplier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsLabel" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.094
+anchor_top = 0.343
+anchor_right = 0.369
+anchor_bottom = 0.425
+offset_left = 0.0999985
+offset_top = -0.199692
+offset_right = -0.150009
+offset_bottom = 0.000320435
+theme_override_colors/font_color = Color(0.901961, 0.294118, 0.235294, 1)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 24
+text = "Slaps"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierValue" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.686
+anchor_top = 0.097
+anchor_right = 0.883
+anchor_bottom = 0.192
+offset_left = -0.100021
+offset_top = 0.199997
+offset_right = -0.0500183
+offset_bottom = 0.199997
+pivot_offset = Vector2(35, 20)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 32
+text = "1.0x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierAnimation" type="AnimationPlayer" parent="UpgradeMenu/MultiplierValue"]
+libraries = {
+"": SubResource("AnimationLibrary_ta8sp")
+}
+
+[node name="SlapsValue" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131
+anchor_top = 0.45
+anchor_right = 0.329
+anchor_bottom = 0.545
+offset_left = 0.149994
+offset_top = 0.000457764
+offset_right = -0.150009
+offset_bottom = 0.000457764
+pivot_offset = Vector2(35, 20)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 32
+text = "+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsAnimation" type="AnimationPlayer" parent="UpgradeMenu/SlapsValue"]
+libraries = {
+"": SubResource("AnimationLibrary_ta8sp")
+}
+
+[node name="MenuAnimator" type="AnimationPlayer" parent="UpgradeMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_li10i")
+}
+
+[node name="MultiplierCost" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_right = 0.449
+anchor_bottom = 0.08
+offset_left = -0.0500002
+offset_right = -0.150009
+offset_bottom = 7.62939e-05
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 31
+text = "Cost: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierCostAnimations" type="AnimationPlayer" parent="UpgradeMenu/MultiplierCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="SlapsCost" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.569
+anchor_top = 0.343
+anchor_right = 0.974
+anchor_bottom = 0.423
+offset_left = -0.150009
+offset_top = -0.199677
+offset_right = 0.0999756
+offset_bottom = -0.199585
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 31
+text = "Cost: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="UpgradeMenu/SlapsCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="AirTimeMultiplier" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -373.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0.92549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_h2deo")
+theme_override_font_sizes/font_size = 33
+text = "Air Time Multiplier: 1.0x"
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="AirTimeMultiplier"]
+autostart = true
+
+[node name="AirAnimation" type="AnimationPlayer" parent="AirTimeMultiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_jp8f8")
+}
+
+[connection signal="pressed" from="UpgradeMenu/Upgrade Multiplier" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="UpgradeMenu/Upgrade Slaps" to="." method="_on_upgrade_slaps_pressed"]
+[connection signal="timeout" from="AirTimeMultiplier/Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AirTimeMultiplier/AirAnimation" to="." method="_on_air_animation_animation_finished"]

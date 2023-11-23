@@ -18,3 +18,6 @@ func _physics_process(delta):
 	var spring_force = (x *stiffness) - (linear_velocity * damping)
 	apply_central_force(spring_force * mass)
 	#previousMousePosition = get_global_mouse_position()
+	
+func _integrate_forces(state):
+	set_angular_velocity((get_angle_to(get_parent().get_node("Circle").global_position)) * -((get_angle_to(get_parent().get_node("Circle").global_position)) -3.14) * 5)
