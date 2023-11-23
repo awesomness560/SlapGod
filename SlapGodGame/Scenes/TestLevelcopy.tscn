@@ -1,0 +1,126 @@
+[gd_scene load_steps=12 format=3 uid="uid://brar53gvof4dn"]
+
+[ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="1_15gcu"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_jyevx"]
+[ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="3_gux6c"]
+[ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="4_q2dbx"]
+[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="5_s7lxi"]
+[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="6_yqwrq"]
+[ext_resource type="Script" path="res://Scenes/CanvasFollow.gd" id="7_ymrn5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
+size = Vector2(136, 1156)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67kf4"]
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo2xx"]
+size = Vector2(52, 42)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_15gcu")]
+multiplierCost = [10, 500, 1000]
+ball = NodePath("../Game/Circle")
+
+[node name="FireBackground2" type="Sprite2D" parent="."]
+process_priority = -1
+show_behind_parent = true
+visibility_layer = 2
+z_index = -2
+texture_repeat = 2
+position = Vector2(623.12, 323.557)
+scale = Vector2(0.963749, 1.46899)
+texture = ExtResource("2_jyevx")
+region_enabled = true
+region_rect = Rect2(0, 0, 1500, 443.35)
+
+[node name="Game" type="Node" parent="."]
+
+[node name="Wall" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall"]
+position = Vector2(-58, 315)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall2" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
+position = Vector2(-20, 20)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall2"]
+position = Vector2(695.998, -597.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall3" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-22, -651)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall3"]
+position = Vector2(584.998, -596.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall4" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(1165, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall4"]
+position = Vector2(56, 307)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Circle" parent="Game" instance=ExtResource("3_gux6c")]
+position = Vector2(550, 280)
+physics_material_override = SubResource("PhysicsMaterial_67kf4")
+gravity_scale = 0.3
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+mat = SubResource("PhysicsMaterial_67kf4")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Game/Circle"]
+position = Vector2(-550, -280)
+color = Color(0.831373, 0, 0.290196, 1)
+hue_variation_min = -0.18
+hue_variation_max = 0.3
+
+[node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
+top_level = true
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_x106l")
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = 2
+linear_damp = 20.0
+script = ExtResource("4_q2dbx")
+hit_force = 500.0
+empty_cursor = ExtResource("5_s7lxi")
+stiffness = 600
+damping = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Cursor"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_qo2xx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
+z_index = 2
+scale = Vector2(0.300314, 0.300314)
+texture = ExtResource("6_yqwrq")
+
+[node name="CanvasCursor" type="CanvasLayer" parent="."]
+process_mode = 2
+layer = 6
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasCursor"]
+process_priority = 1
+top_level = true
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_yqwrq")
+script = ExtResource("7_ymrn5")
+
+[connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
+[connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
+[connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
+[connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
