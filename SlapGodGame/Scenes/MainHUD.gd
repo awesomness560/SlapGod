@@ -29,6 +29,8 @@ var multiplierCostStep : int = 0
 var bodies
 var speedMultiplier : float = 1
 
+var isPaused : bool = false
+
 @onready var ability1Button : Button = $DamageMenu/Fireball/BuyAbility1
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,15 +49,15 @@ func _ready():
 	$DamageMenu/FireCooldown/BuyCooldown.add_theme_font_size_override("font_size", 55)
 	$DamageMenu/FireballDuration/BuyDuration.add_theme_font_size_override("font_size", 55)
 	$"UpgradeMenu/Upgrade Slaps".add_theme_font_size_override("font_size", 55)
+	$DamageMenu/FireInferno/BuyInferno.add_theme_constant_override("outline_size", 0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	checkForUpgradeMenu()
-	#checkForDamageMenu()
 	if damageMenuOnScreen or menuOnScreen:
 		pause(true)
-	else:
+	elif !menuOnScreen and !isPaused:
 		pause(false)
 	
 	if ball.get_colliding_bodies().is_empty():
@@ -123,6 +125,7 @@ func addMultiplier() -> void:
 	else:
 		$"UpgradeMenu/Upgrade Multiplier".disabled = true
 		$"UpgradeMenu/Upgrade Multiplier".text = "Max Level"
+		bought($"UpgradeMenu/Upgrade Multiplier", "Max Level", $UpgradeMenu/MultiplierCost)
 		$UpgradeMenu/MultiplierCost.hide()
 	$UpgradeMenu/MultiplierValue/MultiplierAnimation.play("MultiplierUpgrade")
 	await get_tree().create_timer(0.21).timeout
@@ -144,7 +147,8 @@ func _on_circle_velocity(speed):
 	$SpeedMultiplier/SpeedMultiAnimator.play("SpeedAnimation")
 	await get_tree().create_timer(0.5).timeout
 	$SpeedMultiplier.text = "Speed Multiplier: 1.0x"
-	
+
+
 func pause(pause : bool):
 	paused.emit()
 	get_tree().paused = pause
@@ -158,7 +162,7 @@ func checkForUpgradeMenu() -> void:
 		$AirTimeMultiplier.visible = true
 		$SpeedMultiplier.visible = true
 #		$UpgradeMenu/MenuAnimator.play_backwards("UpgradeMenu")
-	elif Input.is_action_just_pressed("Upgrade Menu") && !menuOnScreen:
+	elif Input.is_action_just_pressed("Upgrade Menu") && !menuOnScreen && !isPaused:
 		menuOnScreen = true
 		$AnimationPlayer.play("MoveMenu")
 		$AirTimeMultiplier.visible = false
@@ -177,9 +181,11 @@ func _on_buy_ability_1_pressed():
 	if score >= costOfFireball:
 		fireballUnlock.emit()
 		buyFromScore(costOfFireball)
-		$DamageMenu/Fireball/BuyFireball.disabled = true
-		$DamageMenu/Fireball/BuyFireball.text = "Bought"
-		$DamageMenu/Fireball/BuyCostFireball.visible = false
+		bought($DamageMenu/Fireball/BuyFireball, "Bought", $DamageMenu/Fireball/BuyCostFireball)
+		enableButton($DamageMenu/FireballDuration/BuyDuration)
+		enableButton($DamageMenu/FireBurnRate/UpgradeBurnRate)
+		enableButton($DamageMenu/FireCooldown/BuyCooldown)
+		enableButton($DamageMenu/FireInferno/BuyInferno)
 		$DamageMenu/Fireball/BuyCostFireball/MultiplierCostAnimations.play("CostGreen")
 	else:
 		$DamageMenu/Fireball/BuyCostFireball/MultiplierCostAnimations.play("CostRed")
@@ -189,9 +195,7 @@ func _on_buy_duration_pressed():
 	if score >= costOfFireball:
 		fireballDuration.emit()
 		buyFromScore(costOfDuration)
-		$DamageMenu/FireballDuration/BuyDuration.disabled = true
-		$DamageMenu/FireballDuration/BuyDuration.text = "Bought"
-		$DamageMenu/FireballDuration/FireballDurationCost.visible = false
+		bought($DamageMenu/FireballDuration/BuyDuration, "Bought", $DamageMenu/FireballDuration/FireballDurationCost)
 		$DamageMenu/FireballDuration/FireballDurationCost/SlapsCostAnimator.play("CostGreen")
 	else:
 		$DamageMenu/FireballDuration/FireballDurationCost/SlapsCostAnimator.play("CostRed")
@@ -201,9 +205,7 @@ func _on_upgrade_burn_rate_pressed():
 	if score >= costOfFireball:
 		fireBurnRate.emit()
 		buyFromScore(costOfBurnRate)
-		$DamageMenu/FireBurnRate/UpgradeBurnRate.disabled = true
-		$DamageMenu/FireBurnRate/UpgradeBurnRate.text = "Bought"
-		$DamageMenu/FireBurnRate/FireBurnRateCost.visible = false
+		bought($DamageMenu/FireBurnRate/UpgradeBurnRate, "Bought", $DamageMenu/FireBurnRate/FireBurnRateCost)
 		$DamageMenu/FireBurnRate/FireBurnRateCost/SlapsCostAnimator.play("CostGreen")
 	else:
 		$DamageMenu/FireBurnRate/FireBurnRateCost/SlapsCostAnimator.play("CostRed")
@@ -213,9 +215,7 @@ func _on_buy_cooldown_pressed():
 	if score >= costOfFireball:
 		fireCooldown.emit()
 		buyFromScore(costOfCooldown)
-		$DamageMenu/FireCooldown/BuyCooldown.disabled = true
-		$DamageMenu/FireCooldown/BuyCooldown.text = "Bought"
-		$DamageMenu/FireCooldown/FireCooldownCost.visible = false
+		bought($DamageMenu/FireCooldown/BuyCooldown, "Bought", $DamageMenu/FireCooldown/FireCooldownCost)
 		$DamageMenu/FireCooldown/FireCooldownCost/SlapsCostAnimator.play("CostGreen")
 	else:
 		$DamageMenu/FireCooldown/FireCooldownCost/SlapsCostAnimator.play("CostRed")
@@ -228,6 +228,32 @@ func _on_buy_inferno_pressed():
 		$DamageMenu/FireInferno/BuyInferno.disabled = true
 		$DamageMenu/FireInferno/BuyInferno.text = "Bought"
 		$DamageMenu/FireInferno/InfernoCost.visible = false
+		bought($DamageMenu/FireInferno/BuyInferno, "Bought", $DamageMenu/FireInferno/InfernoCost)
 		$DamageMenu/FireInferno/InfernoCost/SlapsCostAnimator.play("CostGreen")
 	else:
 		$DamageMenu/FireInferno/InfernoCost/SlapsCostAnimator.play("CostRed")
+		
+func bought(button : Button, text  : String, cost : Label):
+	button.disabled = true
+	button.add_theme_constant_override("outline_size", 0)
+	button.text = text
+	cost.visible = false
+	
+func enableButton(button : Button):
+	button.disabled = false
+	button.add_theme_constant_override("outline_size", 9)
+
+
+func _on_pause_menu(pauseState):
+	isPaused = pauseState
+	if !pauseState:
+		$DamageMenu.process_mode = Node.PROCESS_MODE_ALWAYS
+		$UpgradeMenu.process_mode = Node.PROCESS_MODE_ALWAYS
+		$DamageMenu.visible = true
+		$UpgradeMenu.visible = true
+	elif pauseState:
+		$DamageMenu.process_mode = Node.PROCESS_MODE_DISABLED
+		$UpgradeMenu.process_mode = Node.PROCESS_MODE_DISABLED
+		$DamageMenu.visible = false
+		$UpgradeMenu.visible = false
+		

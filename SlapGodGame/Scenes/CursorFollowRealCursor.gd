@@ -1,6 +1,7 @@
 extends RigidBody2D
 signal slap
 signal fire(state : bool)
+signal inferno
 
 @export var hit_force : float = 50.0
 var previousMousePosition : Vector2 = Vector2(0,0)
@@ -20,6 +21,8 @@ var fireballUsing : bool = false
 var onCooldown : bool = false
 var infernoOnCooldown : bool = false
 var isUsingInferno : bool = false
+var infernoTimerStarted : bool = false
+var ballEntered : bool = false
 var fireballUnlcoked = false
 
 func _ready():
@@ -52,6 +55,12 @@ func _process(delta):
 	elif Input.is_action_just_pressed("Ability Trigger") && infernoUnlcoked && !isUsingInferno:
 		if !infernoOnCooldown:
 			isUsingInferno = true
+			$FireInferno/AnimatedSprite2D.visible = true
+			duration.start()
+	if ballEntered && infernoUnlcoked && !infernoOnCooldown && isUsingInferno && !infernoTimerStarted:
+		print("Start Timer")
+		$FireInfernoTimer.start()
+		infernoTimerStarted = true
 			
 func useFireball() -> void:
 	duration.start()
@@ -65,6 +74,12 @@ func stopFireball() -> void:
 
 func _on_duration_timeout():
 	stopFireball()
+	infernoOnCooldown = true
+	isUsingInferno = false
+	$FireInferno/AnimatedSprite2D.visible = false
+	$FireInfernoTimer.stop()
+	infernoTimerStarted = false
+	cooldown.start()
 
 func _on_slap_speed_timeout():
 	if !onCooldown && fireballUsing:
@@ -73,6 +88,7 @@ func _on_slap_speed_timeout():
 
 func _on_cooldown_timeout():
 	onCooldown = false
+	infernoOnCooldown = false
 
 func _on_main_hud_fireball():
 	fireballUnlcoked = true
@@ -87,20 +103,29 @@ func _on_main_hud_fire_cooldown():
 func _on_main_hud_fire_burn_rate():
 	$SlapSpeed.wait_time = fireBurnRateChange
 
-
 func _on_fire_inferno_body_entered(body):
-	if body.is_in_group("ball") && infernoUnlcoked && infernoOnCooldown && isUsingInferno:
-		$FireInfernoTimer.start()
+	if body.is_in_group("ball"):
+		ballEntered = true
 
 func _on_fire_inferno_body_exited(body):
 	if body.is_in_group("ball") && infernoUnlcoked:
+		ballEntered = false
 		$FireInfernoTimer.stop()
+		infernoTimerStarted = false
 
 func _on_fire_inferno_timer_timeout():
+	print("Timeout")
 	slap.emit()
 	slap.emit()
+	infernoTimerStarted = false
 
 func _on_main_hud_fire_inferno():
 	infernoUnlcoked = true
 	$FireInferno.monitoring = true
+	$FireInferno.get
 	fireballUnlcoked = false
+	for body in $FireInferno.get_overlapping_bodies():
+		if body.is_in_group("ball"):
+			ballEntered = true
+	inferno.emit()
+	stopFireball()

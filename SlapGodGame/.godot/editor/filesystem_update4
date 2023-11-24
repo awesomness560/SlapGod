@@ -3,4 +3,8 @@ res://Scenes/TestLevel.tscn
 res://Scenes/TestLevel2nd.tscn
 res://Scenes/TestLevel3.tscn
 res://Scenes/MainHUD.tscn
+res://Scenes/MainHUD.gd
 res://Scenes/CursorFollowRealCursor.gd
+res://Scenes/FireInfernoArea.gd
+res://Scenes/PauseMenu.tscn
+res://Scenes/PauseMenu.gd

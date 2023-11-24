@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dqfxmo3x3x70e"]
+[gd_scene load_steps=88 format=3 uid="uid://dqfxmo3x3x70e"]
 
 [ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="1_cxixw"]
 [ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="2_ncvp6"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="7_4n12g"]
 [ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="7_y6jk0"]
 [ext_resource type="Texture2D" uid="uid://5vmiaxyntbsv" path="res://Sprites/Fireball_68x9.png" id="12_esm2s"]
+[ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/PauseMenu.tscn" id="13_3sb7x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
 size = Vector2(136, 1156)
@@ -512,6 +513,7 @@ glow_enabled = true
 glow_blend_mode = 1
 
 [node name="Node2D" type="Node2D"]
+process_mode = 1
 
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("7_4n12g")]
 multiplierCost = [10, 500, 1000]
@@ -673,6 +675,9 @@ script = ExtResource("5_h8233")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5ycui")
 
+[node name="PauseMenu" parent="." instance=ExtResource("13_3sb7x")]
+process_mode = 3
+
 [connection signal="fireBurnRate" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_burn_rate"]
 [connection signal="fireCooldown" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_cooldown"]
 [connection signal="fireInferno" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_inferno"]
@@ -683,6 +688,7 @@ environment = SubResource("Environment_5ycui")
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
 [connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
 [connection signal="fire" from="Game/Cursor" to="Game/Circle" method="particles"]
+[connection signal="inferno" from="Game/Cursor" to="Game/Cursor/FireInferno" method="_on_cursor_inferno"]
 [connection signal="slap" from="Game/Cursor" to="MainHud" method="scored"]
 [connection signal="timeout" from="Game/Cursor/Duration" to="Game/Cursor" method="_on_duration_timeout"]
 [connection signal="timeout" from="Game/Cursor/Cooldown" to="Game/Cursor" method="_on_cooldown_timeout"]
@@ -690,3 +696,4 @@ environment = SubResource("Environment_5ycui")
 [connection signal="body_entered" from="Game/Cursor/FireInferno" to="Game/Cursor" method="_on_fire_inferno_body_entered"]
 [connection signal="body_exited" from="Game/Cursor/FireInferno" to="Game/Cursor" method="_on_fire_inferno_body_exited"]
 [connection signal="timeout" from="Game/Cursor/FireInfernoTimer" to="Game/Cursor" method="_on_fire_inferno_timer_timeout"]
+[connection signal="paused" from="PauseMenu" to="MainHud" method="_on_pause_menu"]

@@ -1,0 +1,138 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3wearkgkkq07"]
+
+[ext_resource type="Script" path="res://Scenes/PauseMenu.gd" id="1_fdjx3"]
+[ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="2_e7f4q"]
+[ext_resource type="Script" path="res://Scenes/ButtonHover.gd" id="3_gyvdr"]
+
+[sub_resource type="Animation" id="Animation_oa0kb"]
+resource_name = "HoverAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 30]
+}
+
+[sub_resource type="Animation" id="Animation_bm8to"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [25]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcyo8"]
+_data = {
+"HoverAnimation": SubResource("Animation_oa0kb"),
+"RESET": SubResource("Animation_bm8to")
+}
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_fdjx3")
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paused" type="Label" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.5
+offset_top = -11.5
+offset_right = 21.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e7f4q")
+theme_override_font_sizes/font_size = 115
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="ColorRect" parent="PauseMenu"]
+process_priority = -1
+z_index = -1
+offset_left = -8.0
+offset_top = -17.0
+offset_right = 1178.0
+offset_bottom = 664.0
+color = Color(0, 0, 0, 0.415686)
+
+[node name="Resume" type="Button" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -204.0
+offset_right = 82.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_e7f4q")
+theme_override_font_sizes/font_size = 25
+text = "Resume"
+flat = true
+script = ExtResource("3_gyvdr")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="PauseMenu/Resume"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[connection signal="mouse_entered" from="PauseMenu/Resume" to="PauseMenu/Resume" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PauseMenu/Resume" to="PauseMenu/Resume" method="_on_mouse_exited"]
+[connection signal="pressed" from="PauseMenu/Resume" to="." method="pauseMenu"]
