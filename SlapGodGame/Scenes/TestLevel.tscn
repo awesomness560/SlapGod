@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqfxmo3x3x70e"]
+[gd_scene load_steps=25 format=3 uid="uid://dqfxmo3x3x70e"]
 
 [ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="1_cxixw"]
 [ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="2_ncvp6"]
 [ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="3_4g3ie"]
 [ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="3_io35a"]
+[ext_resource type="Texture2D" uid="uid://dd8vln2fn753h" path="res://addons/kenney_particle_pack/fire_01.png" id="4_s7sct"]
 [ext_resource type="Script" path="res://Scenes/CanvasFollow.gd" id="5_h8233"]
+[ext_resource type="Texture2D" uid="uid://cn8lvmrrnlcan" path="res://addons/kenney_particle_pack/smoke_01.png" id="5_qxj7y"]
+[ext_resource type="Texture2D" uid="uid://b16jkym03almg" path="res://addons/kenney_particle_pack/fire_02.png" id="6_8dqx3"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="6_h0o3g"]
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="7_4n12g"]
+[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="7_y6jk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
 size = Vector2(136, 1156)
@@ -14,11 +18,69 @@ size = Vector2(136, 1156)
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67kf4"]
 bounce = 1.0
 
+[sub_resource type="Gradient" id="Gradient_6k238"]
+offsets = PackedFloat32Array(0.0163934, 0.434426, 0.688525, 1)
+colors = PackedColorArray(1, 0.101961, 0, 1, 0.968627, 1, 0, 1, 0.982571, 0.600871, 0, 1, 0.964706, 0.996078, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wcf1u"]
+gradient = SubResource("Gradient_6k238")
+
+[sub_resource type="Curve" id="Curve_hcohg"]
+_data = [Vector2(0, 0.021978), 0.0, 0.0, 0, 0, Vector2(0.533333, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wctsn"]
+curve = SubResource("Curve_hcohg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xlpc6"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 88.72
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 1.0
+initial_velocity_max = 100.0
+angular_velocity_min = 32.0
+angular_velocity_max = 32.0
+gravity = Vector3(0, -300, 0)
+scale_min = 0.2
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_wctsn")
+color_ramp = SubResource("GradientTexture1D_wcf1u")
+
+[sub_resource type="Gradient" id="Gradient_5h0sn"]
+offsets = PackedFloat32Array(0.327869, 1)
+colors = PackedColorArray(0.982571, 0.600871, 0, 1, 0.964706, 0.996078, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k58fv"]
+gradient = SubResource("Gradient_5h0sn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ygi2i"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 1.0
+initial_velocity_max = 100.0
+angular_velocity_min = 32.0
+angular_velocity_max = 32.0
+gravity = Vector3(0, -300, 0)
+scale_min = 0.3
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_wctsn")
+color_ramp = SubResource("GradientTexture1D_k58fv")
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qo2xx"]
 size = Vector2(52, 42)
+
+[sub_resource type="Environment" id="Environment_5ycui"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
 
 [node name="Node2D" type="Node2D"]
 
@@ -79,6 +141,31 @@ max_contacts_reported = 1
 contact_monitor = true
 mat = SubResource("PhysicsMaterial_67kf4")
 
+[node name="Particles" type="Node" parent="Game/Circle"]
+
+[node name="Fire1" type="GPUParticles2D" parent="Game/Circle"]
+modulate = Color(3, 1, 1, 1)
+position = Vector2(1.76, 11.6)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xlpc6")
+texture = ExtResource("4_s7sct")
+lifetime = 0.5
+
+[node name="Smoke" type="GPUParticles2D" parent="Game/Circle"]
+position = Vector2(1.76, 11.6)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ygi2i")
+texture = ExtResource("5_qxj7y")
+lifetime = 0.8
+
+[node name="Fire2" type="GPUParticles2D" parent="Game/Circle"]
+modulate = Color(2.5, 1.5, 1, 1)
+position = Vector2(1.76, 11.6)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xlpc6")
+texture = ExtResource("6_8dqx3")
+lifetime = 0.8
+
 [node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
 top_level = true
 mass = 0.5
@@ -102,6 +189,29 @@ z_index = 2
 scale = Vector2(0.300314, 0.300314)
 texture = ExtResource("3_4g3ie")
 
+[node name="Duration" type="Timer" parent="Game/Cursor"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="Game/Cursor"]
+wait_time = 4.0
+one_shot = true
+
+[node name="SlapSpeed" type="Timer" parent="Game/Cursor"]
+wait_time = 0.5
+autostart = true
+
+[node name="CooldownBar" type="TextureProgressBar" parent="Game/Cursor"]
+offset_left = -57.0
+offset_top = -60.0
+offset_right = 455.0
+offset_bottom = 452.0
+scale = Vector2(0.23, 0.23)
+pivot_offset = Vector2(0.03, 0)
+fill_mode = 4
+texture_progress = ExtResource("7_y6jk0")
+tint_progress = Color(1, 0, 0.0352941, 1)
+
 [node name="CanvasCursor" type="CanvasLayer" parent="."]
 process_mode = 2
 layer = 6
@@ -114,7 +224,19 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_4g3ie")
 script = ExtResource("5_h8233")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5ycui")
+
+[connection signal="fireBurnRate" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_burn_rate"]
+[connection signal="fireCooldown" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_cooldown"]
+[connection signal="fireballDuration" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball_duration"]
+[connection signal="fireballUnlock" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball"]
 [connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
 [connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
 [connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
+[connection signal="fire" from="Game/Cursor" to="Game/Circle" method="particles"]
+[connection signal="slap" from="Game/Cursor" to="MainHud" method="scored"]
+[connection signal="timeout" from="Game/Cursor/Duration" to="Game/Cursor" method="_on_duration_timeout"]
+[connection signal="timeout" from="Game/Cursor/Cooldown" to="Game/Cursor" method="_on_cooldown_timeout"]
+[connection signal="timeout" from="Game/Cursor/SlapSpeed" to="Game/Cursor" method="_on_slap_speed_timeout"]

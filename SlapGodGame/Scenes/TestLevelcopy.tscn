@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://brar53gvof4dn"]
+[gd_scene load_steps=12 format=3 uid="uid://tlbuw321dnhe"]
 
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="1_15gcu"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_jyevx"]

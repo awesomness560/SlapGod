@@ -2,6 +2,9 @@ extends RigidBody2D
 signal scored
 signal airTimeFail
 signal velocity(speed : Vector2)
+@onready var fire1 : GPUParticles2D = $Fire1
+@onready var fire2 : GPUParticles2D = $Fire2
+@onready var smoke : GPUParticles2D = $Smoke
 
 var entered : bool = true
 @export var max_speed = 100
@@ -20,7 +23,6 @@ func _on_body_entered(body):
 		mat.absorbent = true
 		scored.emit()
 		velocity.emit(linear_velocity)
-		print(linear_velocity)
 	elif body.is_in_group("wall"):
 		mat.bounce = bounce
 		if body.is_in_group("floor"):
@@ -32,3 +34,8 @@ func _on_body_exited(body):
 		await get_tree().create_timer(0.1).timeout
 		mat.absorbent = false
 		mat.bounce = bounce
+
+func particles(state : bool):
+	fire1.emitting = state
+	fire2.emitting = state
+	smoke.emitting = state

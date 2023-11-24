@@ -1,6 +1,11 @@
 res://Scenes/Circle.tscn
-res://Scenes/TestLevelcopy.tscn
 res://Scenes/TestLevel.tscn
 res://Scenes/TestLevel2nd.tscn
 res://Scenes/TestLevel3.tscn
 res://Scenes/MainHUD.tscn
+res://Scenes/TestLevelcopy.tscn
+res://Scenes/ButtonHover.gd
+res://Scenes/MainHUD.gd
+res://Scenes/CursorFollowRealCursor.gd
+res://Code/Circle.gd
+res://Scenes/Camera2D.gd
