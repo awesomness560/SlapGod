@@ -1,3 +1,9 @@
+CollisionPolygon2D
+AnimatedSprite2D
+Sprite2D
+Timer
+CollisionShape2D
+Area2D
 ColorRect
 AnimationPlayer
 Camera2D
@@ -6,10 +12,3 @@ Node
 GPUParticles2D
 RemoteTransform2D
 TextureProgressBar
-Timer
-Control
-CPUParticles2D
-Container
-Label
-Sprite2D
-CanvasLayer

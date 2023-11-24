@@ -14,15 +14,20 @@ var previousMousePosition : Vector2 = Vector2(0,0)
 @export var fireDurationIncrease : int = 4
 @export var fireCooldownDecrease : int = 2
 @export var fireBurnRateChange : int = 0.25
+var infernoUnlcoked : bool = false
 var canUse : bool = true
 var fireballUsing : bool = false
 var onCooldown : bool = false
+var infernoOnCooldown : bool = false
+var isUsingInferno : bool = false
 var fireballUnlcoked = false
 
 func _ready():
 	Input.set_custom_mouse_cursor(empty_cursor, Input.CURSOR_ARROW)
 	cooldownProgress.value = 0
 	cooldown.wait_time = cooldownProgress.value
+	$FireInferno.monitoring = false
+	$FireInferno/AnimatedSprite2D.play("new_animation")
 
 func _physics_process(delta):
 	#if(previousMousePosition != get_global_mouse_position()):
@@ -44,6 +49,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("Ability Trigger") && fireballUnlcoked:
 		if !onCooldown && !fireballUsing:
 			useFireball()
+	elif Input.is_action_just_pressed("Ability Trigger") && infernoUnlcoked && !isUsingInferno:
+		if !infernoOnCooldown:
+			isUsingInferno = true
 			
 func useFireball() -> void:
 	duration.start()
@@ -78,3 +86,21 @@ func _on_main_hud_fire_cooldown():
 
 func _on_main_hud_fire_burn_rate():
 	$SlapSpeed.wait_time = fireBurnRateChange
+
+
+func _on_fire_inferno_body_entered(body):
+	if body.is_in_group("ball") && infernoUnlcoked && infernoOnCooldown && isUsingInferno:
+		$FireInfernoTimer.start()
+
+func _on_fire_inferno_body_exited(body):
+	if body.is_in_group("ball") && infernoUnlcoked:
+		$FireInfernoTimer.stop()
+
+func _on_fire_inferno_timer_timeout():
+	slap.emit()
+	slap.emit()
+
+func _on_main_hud_fire_inferno():
+	infernoUnlcoked = true
+	$FireInferno.monitoring = true
+	fireballUnlcoked = false
