@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3wearkgkkq07"]
 
-[ext_resource type="Script" path="res://Scenes/PauseMenu.gd" id="1_fdjx3"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/PauseMenu.gd" id="1_fdjx3"]
 [ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="2_e7f4q"]
-[ext_resource type="Script" path="res://Scenes/ButtonHover.gd" id="3_gyvdr"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="3_gyvdr"]
 
 [sub_resource type="Animation" id="Animation_oa0kb"]
 resource_name = "HoverAnimation"
@@ -100,6 +100,7 @@ vertical_alignment = 1
 [node name="Background" type="ColorRect" parent="PauseMenu"]
 process_priority = -1
 z_index = -1
+layout_mode = 0
 offset_left = -8.0
 offset_top = -17.0
 offset_right = 1178.0

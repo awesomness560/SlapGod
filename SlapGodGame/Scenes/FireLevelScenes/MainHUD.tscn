@@ -1,10 +1,10 @@
 [gd_scene load_steps=36 format=3 uid="uid://dyaj37u0t2xfu"]
 
-[ext_resource type="Script" path="res://Scenes/MainHUD.gd" id="1_5vpgb"]
+[ext_resource type="Script" path="res://Code/FireScripts/MainHUDFire.gd" id="1_5vpgb"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_3hw3g"]
 [ext_resource type="Texture2D" uid="uid://crqj3umspe0nl" path="res://Sprites/FireWithStuff.png" id="3_tx6rd"]
 [ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="4_h2deo"]
-[ext_resource type="Script" path="res://Scenes/ButtonHover.gd" id="4_v6m4q"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="4_v6m4q"]
 
 [sub_resource type="Animation" id="Animation_tprfo"]
 length = 0.001

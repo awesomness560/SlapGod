@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://di5qrdt6pn72d"]
+
+[ext_resource type="Script" path="res://Code/EarthScripts/CircleEarth.gd" id="1_4xh30"]
+[ext_resource type="Texture2D" uid="uid://cmeuwn7huqmtk" path="res://Sprites/EarthBall.png" id="2_e4ivq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5f55p"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ujcd"]
+radius = 92.0054
+
+[node name="Circle" type="RigidBody2D" groups=["ball"]]
+position = Vector2(615, 342)
+physics_material_override = SubResource("PhysicsMaterial_5f55p")
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_4xh30")
+mat = SubResource("PhysicsMaterial_5f55p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_e4ivq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("CircleShape2D_7ujcd")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

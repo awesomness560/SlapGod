@@ -1,0 +1,231 @@
+[gd_scene load_steps=18 format=3 uid="uid://cf0ukerjc7fhp"]
+
+[ext_resource type="PackedScene" uid="uid://disnbhntocmpi" path="res://Scenes/EarthScenes/MainHUD.tscn" id="1_fr3rb"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="3_lkyq1"]
+[ext_resource type="Script" path="res://Code/EarthScripts/CursorEarth.gd" id="3_m2cp1"]
+[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="5_72wih"]
+[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="6_yecij"]
+[ext_resource type="PackedScene" uid="uid://di5qrdt6pn72d" path="res://Scenes/EarthScenes/circle.tscn" id="7_can0g"]
+[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="7_jb7jj"]
+[ext_resource type="Script" path="res://Code/EarthScripts/CircleEarth.gd" id="7_mon6v"]
+[ext_resource type="Texture2D" uid="uid://c2jmnjtby4ukm" path="res://Sprites/AirBall.png" id="8_po802"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="10_1d8e3"]
+[ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/UniversalScenes/PauseMenu.tscn" id="11_a6gd3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
+size = Vector2(136, 1156)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo2xx"]
+size = Vector2(52, 42)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5f55p"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ujcd"]
+radius = 92.0054
+
+[sub_resource type="Environment" id="Environment_5ycui"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="Node2D" type="Node2D"]
+process_mode = 1
+
+[node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_fr3rb")]
+ball = NodePath("../Game/Circle")
+
+[node name="FireBackground2" type="Sprite2D" parent="."]
+process_priority = -1
+show_behind_parent = true
+visibility_layer = 2
+z_index = -2
+texture_repeat = 2
+position = Vector2(623.12, 323.557)
+scale = Vector2(0.963749, 1.46899)
+texture = ExtResource("3_lkyq1")
+region_enabled = true
+region_rect = Rect2(0, 0, 1500, 443.35)
+
+[node name="Game" type="Node" parent="."]
+
+[node name="Wall" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-10, 10)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall"]
+position = Vector2(-58, 315)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall2" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
+position = Vector2(-20, 20)
+rotation = 1.5708
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall2"]
+position = Vector2(695.998, -597.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall3" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(-22, -651)
+rotation = 1.5708
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall3"]
+position = Vector2(584.998, -596.002)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Wall4" type="StaticBody2D" parent="Game" groups=["wall"]]
+position = Vector2(1165, 24)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall4"]
+position = Vector2(56, 307)
+shape = SubResource("RectangleShape2D_bao77")
+
+[node name="Cursor" type="RigidBody2D" parent="Game" node_paths=PackedStringArray("ballClone", "secondBallClone", "ball") groups=["Player"]]
+top_level = true
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_x106l")
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = 2
+linear_damp = 20.0
+script = ExtResource("3_m2cp1")
+hit_force = 500.0
+empty_cursor = ExtResource("5_72wih")
+stiffness = 600
+damping = 15
+ballClone = NodePath("../CircleClone")
+secondBallClone = NodePath("../CircleClone2")
+ball = NodePath("../Circle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Cursor"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_qo2xx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
+z_index = 2
+scale = Vector2(0.300314, 0.300314)
+texture = ExtResource("6_yecij")
+
+[node name="Duration" type="Timer" parent="Game/Cursor"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="Game/Cursor"]
+wait_time = 4.0
+one_shot = true
+
+[node name="CooldownBar" type="TextureProgressBar" parent="Game/Cursor"]
+offset_left = -57.0
+offset_top = -60.0
+offset_right = 455.0
+offset_bottom = 452.0
+scale = Vector2(0.23, 0.23)
+pivot_offset = Vector2(0.03, 0)
+fill_mode = 4
+texture_progress = ExtResource("7_jb7jj")
+tint_progress = Color(1, 0, 0.0352941, 1)
+
+[node name="FireInfernoTimer" type="Timer" parent="Game/Cursor"]
+wait_time = 0.2
+
+[node name="RayCast2D" type="RayCast2D" parent="Game/Cursor"]
+rotation = -1.5708
+target_position = Vector2(0, 1500)
+collision_mask = 4
+
+[node name="AmericaFireRate" type="Timer" parent="Game/Cursor"]
+wait_time = 0.2
+
+[node name="Circle" parent="Game" instance=ExtResource("7_can0g")]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CircleClone" type="RigidBody2D" parent="Game" groups=["Player", "ball"]]
+visible = false
+position = Vector2(369, 276)
+collision_layer = 2
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_5f55p")
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("7_mon6v")
+mat = SubResource("PhysicsMaterial_5f55p")
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/CircleClone"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_po802")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/CircleClone"]
+position = Vector2(-3, 0)
+shape = SubResource("CircleShape2D_7ujcd")
+
+[node name="Timer" type="Timer" parent="Game/CircleClone"]
+
+[node name="CircleClone2" type="RigidBody2D" parent="Game" groups=["Player", "ball"]]
+visible = false
+position = Vector2(369, 276)
+collision_layer = 2
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_5f55p")
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("7_mon6v")
+mat = SubResource("PhysicsMaterial_5f55p")
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/CircleClone2"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_po802")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/CircleClone2"]
+position = Vector2(-3, 0)
+shape = SubResource("CircleShape2D_7ujcd")
+
+[node name="Timer" type="Timer" parent="Game/CircleClone2"]
+
+[node name="CanvasCursor" type="CanvasLayer" parent="."]
+process_mode = 2
+layer = 6
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasCursor"]
+process_priority = 1
+top_level = true
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_yecij")
+script = ExtResource("10_1d8e3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5ycui")
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_a6gd3")]
+process_mode = 3
+
+[connection signal="abilityCooldown" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_cooldown"]
+[connection signal="abilityDuration" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball_duration"]
+[connection signal="fireBurnRate" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_burn_rate"]
+[connection signal="ghost" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_inferno"]
+[connection signal="stasisUnlock" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball"]
+[connection signal="slap" from="Game/Cursor" to="MainHud" method="scored"]
+[connection signal="timeout" from="Game/Cursor/Duration" to="Game/Cursor" method="_on_duration_timeout"]
+[connection signal="timeout" from="Game/Cursor/Cooldown" to="Game/Cursor" method="_on_cooldown_timeout"]
+[connection signal="timeout" from="Game/Cursor/FireInfernoTimer" to="Game/Cursor" method="_on_fire_inferno_timer_timeout"]
+[connection signal="timeout" from="Game/Cursor/AmericaFireRate" to="Game/Cursor" method="_on_america_fire_rate_timeout"]
+[connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
+[connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
+[connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
+[connection signal="body_entered" from="Game/CircleClone" to="Game/CircleClone" method="_on_body_entered"]
+[connection signal="body_exited" from="Game/CircleClone" to="Game/CircleClone" method="_on_body_exited"]
+[connection signal="scored" from="Game/CircleClone" to="MainHud" method="scored"]
+[connection signal="timeout" from="Game/CircleClone/Timer" to="Game/CircleClone" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Game/CircleClone2" to="Game/CircleClone2" method="_on_body_entered"]
+[connection signal="body_exited" from="Game/CircleClone2" to="Game/CircleClone2" method="_on_body_exited"]
+[connection signal="scored" from="Game/CircleClone2" to="MainHud" method="scored"]
+[connection signal="timeout" from="Game/CircleClone2/Timer" to="Game/CircleClone2" method="_on_timer_timeout"]

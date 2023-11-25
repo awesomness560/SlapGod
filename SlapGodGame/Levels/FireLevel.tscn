@@ -1,18 +1,18 @@
 [gd_scene load_steps=88 format=3 uid="uid://dqfxmo3x3x70e"]
 
-[ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="1_cxixw"]
-[ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="2_ncvp6"]
-[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="3_4g3ie"]
-[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="3_io35a"]
-[ext_resource type="Texture2D" uid="uid://dd8vln2fn753h" path="res://addons/kenney_particle_pack/fire_01.png" id="4_s7sct"]
-[ext_resource type="Script" path="res://Scenes/CanvasFollow.gd" id="5_h8233"]
-[ext_resource type="Texture2D" uid="uid://cn8lvmrrnlcan" path="res://addons/kenney_particle_pack/smoke_01.png" id="5_qxj7y"]
-[ext_resource type="Texture2D" uid="uid://b16jkym03almg" path="res://addons/kenney_particle_pack/fire_02.png" id="6_8dqx3"]
-[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="6_h0o3g"]
-[ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="7_4n12g"]
-[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="7_y6jk0"]
-[ext_resource type="Texture2D" uid="uid://5vmiaxyntbsv" path="res://Sprites/Fireball_68x9.png" id="12_esm2s"]
-[ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/PauseMenu.tscn" id="13_3sb7x"]
+[ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/FireLevelScenes/MainHUD.tscn" id="1_tmapw"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_xbxnc"]
+[ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/FireLevelScenes/Circle.tscn" id="3_epw7y"]
+[ext_resource type="Texture2D" uid="uid://dd8vln2fn753h" path="res://addons/kenney_particle_pack/fire_01.png" id="4_jl8fo"]
+[ext_resource type="Texture2D" uid="uid://cn8lvmrrnlcan" path="res://addons/kenney_particle_pack/smoke_01.png" id="5_eniud"]
+[ext_resource type="Texture2D" uid="uid://b16jkym03almg" path="res://addons/kenney_particle_pack/fire_02.png" id="6_a2a4y"]
+[ext_resource type="Script" path="res://Code/FireScripts/CursorFire.gd" id="7_e151u"]
+[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="8_dvyiu"]
+[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="9_basy1"]
+[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="10_ktgjs"]
+[ext_resource type="Texture2D" uid="uid://5vmiaxyntbsv" path="res://Sprites/Fireball_68x9.png" id="11_janyi"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="12_b6iv5"]
+[ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/UniversalScenes/PauseMenu.tscn" id="13_q6yh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
 size = Vector2(136, 1156)
@@ -80,243 +80,243 @@ absorbent = true
 size = Vector2(52, 42)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e771n"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qbu71"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mrm5e"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xy61w"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jbbj"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1alq5"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ul1n6"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_25vtg"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eme2r"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d36pk"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 0, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wufiw"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0kfo4"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rcasj"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_na7j3"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynq8n"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oak17"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dc0ki"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yg6n3"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cg21h"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gptey"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 9, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxvep"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bnnhd"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_06xhk"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ge2m3"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s5tnf"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sd7ys"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ftji8"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo2gi"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosyr"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5tu3"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 18, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3jjjx"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hs0vp"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxthc"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dh7g5"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ae284"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e5bqr"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdydi"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yyqyr"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgnqt"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mwcpg"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 27, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3at7w"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntsy1"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ckler"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ph04"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wy2nk"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mojj5"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4kadq"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yx66u"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fcwr"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jvxnk"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 36, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gx5pq"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(0, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gktkn"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(68, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2k53v"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(136, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8523o"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(204, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xhul"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(272, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqtcy"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(340, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0n0la"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(408, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mu7sq"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(476, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u1mn3"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(544, 45, 68, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hvmv6"]
-atlas = ExtResource("12_esm2s")
+atlas = ExtResource("11_janyi")
 region = Rect2(612, 45, 68, 9)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1ga3c"]
@@ -515,7 +515,7 @@ glow_blend_mode = 1
 [node name="Node2D" type="Node2D"]
 process_mode = 1
 
-[node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("7_4n12g")]
+[node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_tmapw")]
 multiplierCost = [10, 500, 1000]
 ball = NodePath("../Game/Circle")
 
@@ -527,7 +527,7 @@ z_index = -2
 texture_repeat = 2
 position = Vector2(623.12, 323.557)
 scale = Vector2(0.963749, 1.46899)
-texture = ExtResource("6_h0o3g")
+texture = ExtResource("2_xbxnc")
 region_enabled = true
 region_rect = Rect2(0, 0, 1500, 443.35)
 
@@ -563,7 +563,7 @@ position = Vector2(1165, 24)
 position = Vector2(56, 307)
 shape = SubResource("RectangleShape2D_bao77")
 
-[node name="Circle" parent="Game" groups=["ball"] instance=ExtResource("1_cxixw")]
+[node name="Circle" parent="Game" groups=["ball"] instance=ExtResource("3_epw7y")]
 position = Vector2(550, 280)
 physics_material_override = SubResource("PhysicsMaterial_67kf4")
 gravity_scale = 0.3
@@ -579,14 +579,14 @@ modulate = Color(3, 1, 1, 1)
 position = Vector2(1.76, 11.6)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_xlpc6")
-texture = ExtResource("4_s7sct")
+texture = ExtResource("4_jl8fo")
 lifetime = 0.5
 
 [node name="Smoke" type="GPUParticles2D" parent="Game/Circle"]
 position = Vector2(1.76, 11.6)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_ygi2i")
-texture = ExtResource("5_qxj7y")
+texture = ExtResource("5_eniud")
 lifetime = 0.8
 
 [node name="Fire2" type="GPUParticles2D" parent="Game/Circle"]
@@ -594,7 +594,7 @@ modulate = Color(2.5, 1.5, 1, 1)
 position = Vector2(1.76, 11.6)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_xlpc6")
-texture = ExtResource("6_8dqx3")
+texture = ExtResource("6_a2a4y")
 lifetime = 0.8
 
 [node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
@@ -605,9 +605,9 @@ gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = 2
 linear_damp = 20.0
-script = ExtResource("2_ncvp6")
+script = ExtResource("7_e151u")
 hit_force = 500.0
-empty_cursor = ExtResource("3_io35a")
+empty_cursor = ExtResource("8_dvyiu")
 stiffness = 600
 damping = 15
 
@@ -618,7 +618,7 @@ shape = SubResource("RectangleShape2D_qo2xx")
 [node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
 z_index = 2
 scale = Vector2(0.300314, 0.300314)
-texture = ExtResource("3_4g3ie")
+texture = ExtResource("9_basy1")
 
 [node name="Duration" type="Timer" parent="Game/Cursor"]
 wait_time = 4.0
@@ -640,7 +640,7 @@ offset_bottom = 452.0
 scale = Vector2(0.23, 0.23)
 pivot_offset = Vector2(0.03, 0)
 fill_mode = 4
-texture_progress = ExtResource("7_y6jk0")
+texture_progress = ExtResource("10_ktgjs")
 tint_progress = Color(1, 0, 0.0352941, 1)
 
 [node name="FireInferno" type="Area2D" parent="Game/Cursor"]
@@ -669,13 +669,13 @@ visible = false
 process_priority = 1
 top_level = true
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("3_4g3ie")
-script = ExtResource("5_h8233")
+texture = ExtResource("9_basy1")
+script = ExtResource("12_b6iv5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5ycui")
 
-[node name="PauseMenu" parent="." instance=ExtResource("13_3sb7x")]
+[node name="PauseMenu" parent="." instance=ExtResource("13_q6yh1")]
 process_mode = 3
 
 [connection signal="fireBurnRate" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_burn_rate"]
@@ -684,6 +684,7 @@ process_mode = 3
 [connection signal="fireballDuration" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball_duration"]
 [connection signal="fireballUnlock" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball"]
 [connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
+[connection signal="body_entered" from="Game/Circle" to="Game/Circle" method="_on_body_entered"]
 [connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
 [connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]

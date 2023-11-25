@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://tlbuw321dnhe"]
 
-[ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/MainHUD.tscn" id="1_15gcu"]
+[ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/FireLevelScenes/MainHUD.tscn" id="1_15gcu"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_jyevx"]
-[ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/Circle.tscn" id="3_gux6c"]
-[ext_resource type="Script" path="res://Scenes/CursorFollowRealCursor.gd" id="4_q2dbx"]
+[ext_resource type="PackedScene" uid="uid://yo7psbse2uv1" path="res://Scenes/FireLevelScenes/Circle.tscn" id="3_gux6c"]
+[ext_resource type="Script" path="res://Code/FireScripts/CursorFire.gd" id="4_q2dbx"]
 [ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="5_s7lxi"]
 [ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="6_yqwrq"]
-[ext_resource type="Script" path="res://Scenes/CanvasFollow.gd" id="7_ymrn5"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="7_ymrn5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
 size = Vector2(136, 1156)

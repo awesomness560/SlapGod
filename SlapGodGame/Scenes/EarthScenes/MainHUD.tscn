@@ -1,0 +1,1306 @@
+[gd_scene load_steps=36 format=3 uid="uid://disnbhntocmpi"]
+
+[ext_resource type="Script" path="res://Code/EarthScripts/MainHUDEarth.gd" id="1_1x7il"]
+[ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="2_brjkw"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="3_jnojm"]
+[ext_resource type="Texture2D" uid="uid://crqj3umspe0nl" path="res://Sprites/FireWithStuff.png" id="4_w4c4j"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="5_0neme"]
+
+[sub_resource type="Animation" id="Animation_tprfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_80s1d"]
+resource_name = "ScoreReduction"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.647059, 0, 0.0117647, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qmjo4"]
+resource_name = "ScoreShake2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScoreLabel:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 0.0470588, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxmc4"]
+_data = {
+"RESET": SubResource("Animation_tprfo"),
+"ScoreReduction": SubResource("Animation_80s1d"),
+"ScoreShake2": SubResource("Animation_qmjo4")
+}
+
+[sub_resource type="Animation" id="Animation_l47s4"]
+resource_name = "HoverAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="Animation" id="Animation_hnj7p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vsygw"]
+_data = {
+"HoverAnimation": SubResource("Animation_l47s4"),
+"RESET": SubResource("Animation_hnj7p")
+}
+
+[sub_resource type="Animation" id="Animation_oa0kb"]
+resource_name = "HoverAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 30]
+}
+
+[sub_resource type="Animation" id="Animation_bm8to"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [25]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcyo8"]
+_data = {
+"HoverAnimation": SubResource("Animation_oa0kb"),
+"RESET": SubResource("Animation_bm8to")
+}
+
+[sub_resource type="Animation" id="Animation_ugddr"]
+resource_name = "MultiplierUpgrade"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v0cb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ta8sp"]
+_data = {
+"MultiplierUpgrade": SubResource("Animation_ugddr"),
+"RESET": SubResource("Animation_v0cb6")
+}
+
+[sub_resource type="Animation" id="Animation_rbk6e"]
+resource_name = "DamageMenu"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1500, 116), Vector2(700, 116)]
+}
+
+[sub_resource type="Animation" id="Animation_qt0ly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(401, 1000)]
+}
+
+[sub_resource type="Animation" id="Animation_obqo2"]
+resource_name = "UpgradeMenu"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-600, 116), Vector2(50, 116)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_li10i"]
+_data = {
+"DamageMenu": SubResource("Animation_rbk6e"),
+"RESET": SubResource("Animation_qt0ly"),
+"UpgradeMenu": SubResource("Animation_obqo2")
+}
+
+[sub_resource type="Animation" id="Animation_hn41j"]
+resource_name = "CostGreen"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0.729412, 0.156863, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_450hb"]
+resource_name = "CostRed"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0.109804, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iine4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03bu8"]
+_data = {
+"CostGreen": SubResource("Animation_hn41j"),
+"CostRed": SubResource("Animation_450hb"),
+"RESET": SubResource("Animation_iine4")
+}
+
+[sub_resource type="Animation" id="Animation_s67i2"]
+resource_name = "AirTimeFill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_constants/outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 85]
+}
+
+[sub_resource type="Animation" id="Animation_0fgph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_constants/outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jp8f8"]
+_data = {
+"AirTimeFill": SubResource("Animation_s67i2"),
+"RESET": SubResource("Animation_0fgph")
+}
+
+[sub_resource type="Animation" id="Animation_ewjlt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_su3sb"]
+resource_name = "SpeedAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64t4o"]
+_data = {
+"RESET": SubResource("Animation_ewjlt"),
+"SpeedAnimation": SubResource("Animation_su3sb")
+}
+
+[sub_resource type="Animation" id="Animation_7su83"]
+resource_name = "MoveMenu"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-19, -697), Vector2(-19, -18)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(785, -415), Vector2(785, 264)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8, -690), Vector2(-8, -19)]
+}
+
+[sub_resource type="Animation" id="Animation_yew0p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-19, -697)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageMenu:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(785, -415)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -690)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_thlm8"]
+_data = {
+"MoveMenu": SubResource("Animation_7su83"),
+"RESET": SubResource("Animation_yew0p")
+}
+
+[node name="MainHud" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_1x7il")
+speedDivider = 300.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+process_priority = -1
+z_index = -1
+offset_left = -8.0
+offset_top = -690.0
+offset_right = 1178.0
+offset_bottom = -9.0
+color = Color(0, 0, 0, 0.415686)
+
+[node name="Score" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.5
+offset_right = 128.5
+offset_bottom = 98.0
+grow_horizontal = 2
+pivot_offset = Vector2(127, 42)
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -52.0
+offset_right = 138.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 42)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 103
+text = "99"
+horizontal_alignment = 1
+
+[node name="ScoreAnimator" type="AnimationPlayer" parent="Score"]
+libraries = {
+"": SubResource("AnimationLibrary_lxmc4")
+}
+
+[node name="UpgradeMenu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -697.0
+offset_right = 622.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Upgrade Multiplier" type="Button" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.515
+anchor_top = 0.374
+anchor_right = 0.884
+anchor_bottom = 0.5
+offset_left = 11.885
+offset_top = 5.81799
+offset_right = -27.644
+offset_bottom = -7.5
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 49
+text = "Upgrade"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="UpgradeMenu/Upgrade Multiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_vsygw")
+}
+
+[node name="Upgrade Slaps" type="Button" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_top = 0.104
+anchor_right = 0.852
+anchor_bottom = 0.231
+offset_left = -0.269012
+offset_top = -0.0719986
+offset_right = -0.319031
+offset_bottom = 0.128021
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 25
+text = "Upgrade"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="UpgradeMenu/Upgrade Slaps"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="MultiplierLabel" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.29
+anchor_right = 0.432
+anchor_bottom = 0.372
+offset_left = -0.0999985
+offset_top = 0.0299835
+offset_right = 0.0879822
+offset_bottom = 0.22998
+theme_override_colors/font_color = Color(0.905882, 0, 0.196078, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "Multiplier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsLabel" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.103
+anchor_top = 0.026
+anchor_right = 0.435
+anchor_bottom = 0.108
+offset_left = -0.0230026
+offset_top = -0.0179996
+offset_right = 0.164978
+offset_bottom = 0.181999
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.905882, 0, 0.196078, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "Slaps"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierValue" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.159
+anchor_top = 0.401
+anchor_right = 0.356
+anchor_bottom = 0.496
+offset_left = 0.0809937
+offset_top = 0.106995
+offset_right = 0.131027
+offset_bottom = 0.106964
+pivot_offset = Vector2(35, 20)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "1.0x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierAnimation" type="AnimationPlayer" parent="UpgradeMenu/MultiplierValue"]
+libraries = {
+"": SubResource("AnimationLibrary_ta8sp")
+}
+
+[node name="SlapsValue" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.165
+anchor_top = 0.127
+anchor_right = 0.363
+anchor_bottom = 0.222
+offset_left = 0.234993
+offset_top = -0.0110016
+offset_right = -0.0650177
+offset_bottom = -0.0109863
+pivot_offset = Vector2(35, 20)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsAnimation" type="AnimationPlayer" parent="UpgradeMenu/SlapsValue"]
+libraries = {
+"": SubResource("AnimationLibrary_ta8sp")
+}
+
+[node name="MenuAnimator" type="AnimationPlayer" parent="UpgradeMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_li10i")
+}
+
+[node name="MultiplierCost" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.484
+anchor_top = 0.287
+anchor_right = 0.889
+anchor_bottom = 0.38
+offset_left = -0.244019
+offset_top = 0.108994
+offset_right = 0.296936
+offset_bottom = -0.340027
+pivot_offset = Vector2(125, 35)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierCostAnimations" type="AnimationPlayer" parent="UpgradeMenu/MultiplierCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="SlapsCost" type="Label" parent="UpgradeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.484
+anchor_top = 0.03
+anchor_right = 0.889
+anchor_bottom = 0.11
+offset_left = -0.244019
+offset_top = 0.209999
+offset_right = 0.00592041
+offset_bottom = 0.210121
+pivot_offset = Vector2(125, 30)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="UpgradeMenu/SlapsCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="DamageMenu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 785.0
+offset_top = -415.0
+offset_right = 1138.0
+offset_bottom = -7.00024
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuAnimator" type="AnimationPlayer" parent="DamageMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_li10i")
+}
+
+[node name="Fireball" type="Control" parent="DamageMenu"]
+anchors_preset = 0
+offset_right = 364.0
+offset_bottom = 106.0
+
+[node name="BuyFireball" type="Button" parent="DamageMenu/Fireball"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.195
+anchor_top = -1.968
+anchor_right = 0.219
+anchor_bottom = -1.277
+offset_left = 11.98
+offset_top = 5.60806
+offset_right = -13.202
+offset_bottom = -6.63792
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(0.972549, 0, 0.14902, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 55
+text = "Buy"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="DamageMenu/Fireball/BuyFireball"]
+libraries = {
+"": SubResource("AnimationLibrary_vsygw")
+}
+
+[node name="BuyCostFireball" type="Label" parent="DamageMenu/Fireball"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.401
+anchor_top = -2.415
+anchor_right = 0.975
+anchor_bottom = -1.915
+offset_left = 0.0359955
+offset_top = -0.00996399
+offset_right = 0.100006
+offset_bottom = -0.00999451
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 49
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierCostAnimations" type="AnimationPlayer" parent="DamageMenu/Fireball/BuyCostFireball"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="FireballLabel" type="Label" parent="DamageMenu/Fireball"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.429
+anchor_top = -2.434
+anchor_right = 0.5
+anchor_bottom = -1.934
+offset_left = 0.155975
+offset_top = 0.0039978
+offset_right = -6.00003
+offset_bottom = 0.00401306
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.639216, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 45
+text = "Unlock Earth"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireballDuration" type="Control" parent="DamageMenu"]
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 121.0
+offset_right = 365.0
+offset_bottom = 234.0
+
+[node name="BuyDuration" type="Button" parent="DamageMenu/FireballDuration"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.15
+anchor_top = -1.345
+anchor_right = 0.193
+anchor_bottom = -0.805
+offset_left = 1.0
+offset_top = 2.985
+offset_right = 0.949989
+offset_bottom = 2.965
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Buy"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="DamageMenu/FireballDuration/BuyDuration"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="FireballDuration" type="Label" parent="DamageMenu/FireballDuration"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.397
+anchor_top = -2.053
+anchor_right = 0.447
+anchor_bottom = -1.265
+offset_left = -0.0800018
+offset_top = -0.0109711
+offset_right = 0.0799866
+offset_bottom = -0.0549927
+theme_override_colors/font_color = Color(0.901961, 0.294118, 0.235294, 1)
+theme_override_colors/font_outline_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 40
+text = "Increase Ability
+Duration"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireballDurationCost" type="Label" parent="DamageMenu/FireballDuration"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.433
+anchor_top = -2.062
+anchor_right = 0.967
+anchor_bottom = -1.593
+offset_left = 0.119995
+offset_top = 0.0059967
+offset_right = -0.120026
+offset_bottom = 0.00900269
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 50
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="DamageMenu/FireballDuration/FireballDurationCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="FireBurnRate" type="Control" parent="DamageMenu"]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 287.0
+offset_right = 363.0
+offset_bottom = 400.0
+
+[node name="UpgradeBurnRate" type="Button" parent="DamageMenu/FireBurnRate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.15
+anchor_top = -1.345
+anchor_right = 0.193
+anchor_bottom = -0.805
+offset_left = 1.0
+offset_top = 2.985
+offset_right = 0.949989
+offset_bottom = 2.965
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Buy"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="DamageMenu/FireBurnRate/UpgradeBurnRate"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="FireBurnRate" type="Label" parent="DamageMenu/FireBurnRate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.397
+anchor_top = -2.053
+anchor_right = 0.447
+anchor_bottom = -1.265
+offset_left = -0.0800018
+offset_top = -18.011
+offset_right = 0.0800018
+offset_bottom = -18.055
+theme_override_colors/font_color = Color(0.901961, 0.294118, 0.235294, 1)
+theme_override_colors/font_outline_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 40
+text = "Second Ball"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireBurnRateCost" type="Label" parent="DamageMenu/FireBurnRate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.433
+anchor_top = -2.062
+anchor_right = 0.967
+anchor_bottom = -1.593
+offset_left = 0.119995
+offset_top = 0.0059967
+offset_right = -0.120026
+offset_bottom = 0.00900269
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 50
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="DamageMenu/FireBurnRate/FireBurnRateCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="FireCooldown" type="Control" parent="DamageMenu"]
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 457.0
+offset_right = 364.0
+offset_bottom = 570.0
+
+[node name="BuyCooldown" type="Button" parent="DamageMenu/FireCooldown"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.15
+anchor_top = -1.345
+anchor_right = 0.193
+anchor_bottom = -0.805
+offset_left = 1.0
+offset_top = 2.985
+offset_right = 0.949989
+offset_bottom = 2.965
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Buy"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="DamageMenu/FireCooldown/BuyCooldown"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="FireCooldown" type="Label" parent="DamageMenu/FireCooldown"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.397
+anchor_top = -2.053
+anchor_right = 0.447
+anchor_bottom = -1.265
+offset_left = -0.0800018
+offset_top = -0.0109711
+offset_right = 0.0799866
+offset_bottom = -0.0549927
+theme_override_colors/font_color = Color(0.901961, 0.294118, 0.235294, 1)
+theme_override_colors/font_outline_color = Color(1, 0.705882, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 40
+text = "Decrease Ability
+Cooldown"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireCooldownCost" type="Label" parent="DamageMenu/FireCooldown"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.433
+anchor_top = -2.062
+anchor_right = 0.967
+anchor_bottom = -1.593
+offset_left = 0.119995
+offset_top = 0.0059967
+offset_right = -0.120026
+offset_bottom = 0.00900269
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 50
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="DamageMenu/FireCooldown/FireCooldownCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="FireInferno" type="Control" parent="DamageMenu"]
+anchors_preset = 0
+offset_left = -627.0
+offset_top = 459.0
+offset_right = -267.0
+offset_bottom = 572.0
+
+[node name="BuyInferno" type="Button" parent="DamageMenu/FireInferno"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = -1.248
+anchor_right = 0.351
+anchor_bottom = -0.708
+offset_left = 0.119996
+offset_top = 0.0240021
+offset_right = 0.0699921
+offset_bottom = 0.0039978
+pivot_offset = Vector2(60, 28)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 25
+disabled = true
+text = "Buy"
+flat = true
+script = ExtResource("3_jnojm")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="DamageMenu/FireInferno/BuyInferno"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="InfernoLabel" type="Label" parent="DamageMenu/FireInferno"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.392
+anchor_top = -2.858
+anchor_right = 0.833
+anchor_bottom = -1.876
+offset_left = 0.12001
+offset_top = -0.04599
+offset_right = 0.119965
+offset_bottom = -0.0119934
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.639216, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 57
+text = "America
+(Max Level)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfernoCost" type="Label" parent="DamageMenu/FireInferno"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.072
+anchor_top = -1.752
+anchor_right = 0.461
+anchor_bottom = -1.283
+offset_left = -0.079998
+offset_top = -0.0239868
+offset_right = 0.0399933
+offset_bottom = -0.0209808
+pivot_offset = Vector2(73, 15)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 50
+text = "Cost: 1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlapsCostAnimator" type="AnimationPlayer" parent="DamageMenu/FireInferno/InfernoCost"]
+libraries = {
+"": SubResource("AnimationLibrary_03bu8")
+}
+
+[node name="Line" type="Sprite2D" parent="DamageMenu"]
+visible = false
+texture_repeat = 2
+position = Vector2(-203, 52)
+scale = Vector2(0.185771, 0.138428)
+texture = ExtResource("4_w4c4j")
+region_enabled = true
+region_rect = Rect2(317.965, 0, 390.133, 5000)
+
+[node name="Background" type="Sprite2D" parent="DamageMenu"]
+visible = false
+show_behind_parent = true
+z_index = -1
+texture_repeat = 2
+position = Vector2(-230, 55)
+scale = Vector2(1.06961, 1.58782)
+texture = ExtResource("5_0neme")
+region_enabled = true
+region_rect = Rect2(2, 5, 1128.22, 431)
+
+[node name="AirTimeMultiplier" type="Label" parent="."]
+process_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -373.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0.92549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 33
+text = "Air Time Multiplier: 1.0x"
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="AirTimeMultiplier"]
+autostart = true
+
+[node name="AirAnimation" type="AnimationPlayer" parent="AirTimeMultiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_jp8f8")
+}
+
+[node name="SpeedMultiplier" type="Label" parent="."]
+process_mode = 1
+offset_right = 373.0
+offset_bottom = 80.0
+pivot_offset = Vector2(230, 40)
+theme_override_colors/font_color = Color(0.639216, 0, 0.819608, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_brjkw")
+theme_override_font_sizes/font_size = 33
+text = "Speed Multiplier: 1.0x"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
+[node name="SpeedMultiAnimator" type="AnimationPlayer" parent="SpeedMultiplier"]
+libraries = {
+"": SubResource("AnimationLibrary_64t4o")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_thlm8")
+}
+
+[connection signal="mouse_entered" from="UpgradeMenu/Upgrade Multiplier" to="UpgradeMenu/Upgrade Multiplier" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UpgradeMenu/Upgrade Multiplier" to="UpgradeMenu/Upgrade Multiplier" method="_on_mouse_exited"]
+[connection signal="pressed" from="UpgradeMenu/Upgrade Multiplier" to="." method="_on_upgrade_pressed"]
+[connection signal="mouse_entered" from="UpgradeMenu/Upgrade Slaps" to="UpgradeMenu/Upgrade Slaps" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UpgradeMenu/Upgrade Slaps" to="UpgradeMenu/Upgrade Slaps" method="_on_mouse_exited"]
+[connection signal="pressed" from="UpgradeMenu/Upgrade Slaps" to="." method="_on_upgrade_slaps_pressed"]
+[connection signal="mouse_entered" from="DamageMenu/Fireball/BuyFireball" to="DamageMenu/Fireball/BuyFireball" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DamageMenu/Fireball/BuyFireball" to="DamageMenu/Fireball/BuyFireball" method="_on_mouse_exited"]
+[connection signal="pressed" from="DamageMenu/Fireball/BuyFireball" to="." method="_on_buy_ability_1_pressed"]
+[connection signal="mouse_entered" from="DamageMenu/FireballDuration/BuyDuration" to="DamageMenu/FireballDuration/BuyDuration" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DamageMenu/FireballDuration/BuyDuration" to="DamageMenu/FireballDuration/BuyDuration" method="_on_mouse_exited"]
+[connection signal="pressed" from="DamageMenu/FireballDuration/BuyDuration" to="." method="_on_buy_duration_pressed"]
+[connection signal="mouse_entered" from="DamageMenu/FireBurnRate/UpgradeBurnRate" to="DamageMenu/FireBurnRate/UpgradeBurnRate" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DamageMenu/FireBurnRate/UpgradeBurnRate" to="DamageMenu/FireBurnRate/UpgradeBurnRate" method="_on_mouse_exited"]
+[connection signal="pressed" from="DamageMenu/FireBurnRate/UpgradeBurnRate" to="." method="_on_upgrade_burn_rate_pressed"]
+[connection signal="mouse_entered" from="DamageMenu/FireCooldown/BuyCooldown" to="DamageMenu/FireCooldown/BuyCooldown" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DamageMenu/FireCooldown/BuyCooldown" to="DamageMenu/FireCooldown/BuyCooldown" method="_on_mouse_exited"]
+[connection signal="pressed" from="DamageMenu/FireCooldown/BuyCooldown" to="." method="_on_buy_cooldown_pressed"]
+[connection signal="mouse_entered" from="DamageMenu/FireInferno/BuyInferno" to="DamageMenu/FireInferno/BuyInferno" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DamageMenu/FireInferno/BuyInferno" to="DamageMenu/FireInferno/BuyInferno" method="_on_mouse_exited"]
+[connection signal="pressed" from="DamageMenu/FireInferno/BuyInferno" to="." method="_on_buy_inferno_pressed"]
+[connection signal="timeout" from="AirTimeMultiplier/Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AirTimeMultiplier/AirAnimation" to="." method="_on_air_animation_animation_finished"]
