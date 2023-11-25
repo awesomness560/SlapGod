@@ -1,25 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://bukcgtokcup4g"]
+[gd_scene load_steps=14 format=3 uid="uid://bukcgtokcup4g"]
 
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_8essy"]
 [ext_resource type="PackedScene" uid="uid://dc7q0p1qiiut2" path="res://Scenes/AirLevelScenes/MainHUD.tscn" id="2_eratj"]
 [ext_resource type="Script" path="res://Code/AirScripts/MainHUDAir.gd" id="3_ayl7d"]
-[ext_resource type="Script" path="res://Code/AirScripts/CursorAir.gd" id="5_vkvg6"]
-[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="8_lgesp"]
-[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="9_r0ie5"]
-[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="10_q0y34"]
+[ext_resource type="PackedScene" uid="uid://k8wu6w1lesr1" path="res://Scenes/AirLevelScenes/AirCursor.tscn" id="4_ti5e6"]
+[ext_resource type="Texture2D" uid="uid://dfatiliip2ck8" path="res://Sprites/Cursors/AirCursor.png" id="6_vedk7"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="7_jb6q6"]
+[ext_resource type="Script" path="res://Levels/Floor.gd" id="8_xjnki"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="12_c1bvv"]
 [ext_resource type="PackedScene" uid="uid://b7csqot8a83uy" path="res://Scenes/AirLevelScenes/Circle.tscn" id="13_v00hk"]
 [ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/UniversalScenes/PauseMenu.tscn" id="13_yk1fd"]
 [ext_resource type="Script" path="res://Code/AirScripts/CircleAir.gd" id="14_mhp2u"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
-size = Vector2(136, 1156)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
-absorbent = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo2xx"]
-size = Vector2(52, 42)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jds5t"]
 bounce = 1.0
@@ -50,80 +41,8 @@ region_rect = Rect2(0, 0, 1500, 443.35)
 
 [node name="Game" type="Node" parent="."]
 
-[node name="Wall" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(-10, 10)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall"]
-position = Vector2(-58, 315)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall2" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
-position = Vector2(-20, 20)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall2"]
-position = Vector2(695.998, -597.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall3" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(-22, -651)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall3"]
-position = Vector2(584.998, -596.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall4" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(1165, 24)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall4"]
-position = Vector2(56, 307)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
-top_level = true
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_x106l")
-gravity_scale = 0.0
-lock_rotation = true
-continuous_cd = 2
-linear_damp = 20.0
-script = ExtResource("5_vkvg6")
-hit_force = 500.0
-empty_cursor = ExtResource("8_lgesp")
-stiffness = 600
-damping = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Cursor"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_qo2xx")
-
-[node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
-z_index = 2
-scale = Vector2(0.300314, 0.300314)
-texture = ExtResource("9_r0ie5")
-
-[node name="Duration" type="Timer" parent="Game/Cursor"]
-wait_time = 4.0
-one_shot = true
-
-[node name="Cooldown" type="Timer" parent="Game/Cursor"]
-wait_time = 4.0
-one_shot = true
-
-[node name="CooldownBar" type="TextureProgressBar" parent="Game/Cursor"]
-offset_left = -57.0
-offset_top = -60.0
-offset_right = 455.0
-offset_bottom = 452.0
-scale = Vector2(0.23, 0.23)
-pivot_offset = Vector2(0.03, 0)
-fill_mode = 4
-texture_progress = ExtResource("10_q0y34")
-tint_progress = Color(1, 0, 0.0352941, 1)
-
-[node name="FireInfernoTimer" type="Timer" parent="Game/Cursor"]
-wait_time = 0.2
+[node name="Cursor" parent="Game" instance=ExtResource("4_ti5e6")]
+position = Vector2(148, 121)
 
 [node name="Circle" parent="Game" groups=["ball"] instance=ExtResource("13_v00hk")]
 position = Vector2(621, 390)
@@ -132,16 +51,27 @@ freeze_mode = 1
 script = ExtResource("14_mhp2u")
 mat = SubResource("PhysicsMaterial_jds5t")
 
+[node name="Walls" type="StaticBody2D" parent="Game" groups=["wall"]]
+collision_layer = 11
+script = ExtResource("7_jb6q6")
+
+[node name="Floor" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
+collision_layer = 11
+script = ExtResource("8_xjnki")
+
 [node name="CanvasCursor" type="CanvasLayer" parent="."]
 process_mode = 2
 layer = 6
 visible = false
+rotation = 1.5708
+scale = Vector2(0.184, 0.184)
+transform = Transform2D(-8.0429e-09, 0.184, -0.184, -8.0429e-09, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasCursor"]
 process_priority = 1
 top_level = true
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_r0ie5")
+texture = ExtResource("6_vedk7")
 script = ExtResource("12_c1bvv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -150,14 +80,6 @@ environment = SubResource("Environment_5ycui")
 [node name="PauseMenu" parent="." instance=ExtResource("13_yk1fd")]
 process_mode = 3
 
-[connection signal="abilityCooldown" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_cooldown"]
-[connection signal="abilityDuration" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball_duration"]
-[connection signal="ghost" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_inferno"]
-[connection signal="stasisUnlock" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball"]
-[connection signal="slap" from="Game/Cursor" to="MainHud" method="scored"]
-[connection signal="timeout" from="Game/Cursor/Duration" to="Game/Cursor" method="_on_duration_timeout"]
-[connection signal="timeout" from="Game/Cursor/Cooldown" to="Game/Cursor" method="_on_cooldown_timeout"]
-[connection signal="timeout" from="Game/Cursor/FireInfernoTimer" to="Game/Cursor" method="_on_fire_inferno_timer_timeout"]
 [connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
 [connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]

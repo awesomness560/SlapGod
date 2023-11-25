@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://62w0s3o2axn3"]
+
+[ext_resource type="PackedScene" uid="uid://ca0leaffdjkyw" path="res://Scenes/Boss.tscn" id="1_dsua6"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="2_c1imf"]
+[ext_resource type="PackedScene" uid="uid://k8wu6w1lesr1" path="res://Scenes/AirLevelScenes/AirCursor.tscn" id="6_y8hq8"]
+[ext_resource type="Script" path="res://Code/BossScripts/HandSpawner.gd" id="7_w03tu"]
+[ext_resource type="PackedScene" uid="uid://7gqv68n3ipk1" path="res://Scenes/Hand.tscn" id="8_g6pa0"]
+[ext_resource type="Script" path="res://Code/BossScripts/Swapper.gd" id="9_wxeo2"]
+
+[sub_resource type="Curve2D" id="Curve2D_7q5tp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1152, 0, 0, 0, 0, 0, 1152, 648, 0, 0, 0, 0, 0, 648, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="BossRoom" type="Node2D"]
+
+[node name="Circle" parent="." groups=["ball"] instance=ExtResource("1_dsua6")]
+position = Vector2(576, 68)
+scale = Vector2(0.702548, 0.702548)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+script = ExtResource("2_c1imf")
+
+[node name="HandSpawning" type="Node" parent="."]
+script = ExtResource("7_w03tu")
+handScene = ExtResource("8_g6pa0")
+speed = Vector2(800, 1000)
+
+[node name="HandPath" type="Path2D" parent="HandSpawning"]
+curve = SubResource("Curve2D_7q5tp")
+
+[node name="HandSpawnLocation" type="PathFollow2D" parent="HandSpawning/HandPath"]
+
+[node name="HandSpawnRate" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Swapper" type="Node" parent="."]
+script = ExtResource("9_wxeo2")
+
+[node name="Cursor" parent="Swapper" instance=ExtResource("6_y8hq8")]
+position = Vector2(132, 148)
+collision_layer = 3
+
+[connection signal="timeout" from="HandSpawnRate" to="HandSpawning" method="_on_hand_spawn_rate_timeout"]

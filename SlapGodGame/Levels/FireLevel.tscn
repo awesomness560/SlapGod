@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dqfxmo3x3x70e"]
+[gd_scene load_steps=89 format=3 uid="uid://dqfxmo3x3x70e"]
 
 [ext_resource type="PackedScene" uid="uid://dyaj37u0t2xfu" path="res://Scenes/FireLevelScenes/MainHUD.tscn" id="1_tmapw"]
 [ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_xbxnc"]
@@ -8,14 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://b16jkym03almg" path="res://addons/kenney_particle_pack/fire_02.png" id="6_a2a4y"]
 [ext_resource type="Script" path="res://Code/FireScripts/CursorFire.gd" id="7_e151u"]
 [ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="8_dvyiu"]
-[ext_resource type="Texture2D" uid="uid://dt7siu0xooyui" path="res://Sprites/Cursor.png" id="9_basy1"]
+[ext_resource type="Texture2D" uid="uid://bxu4xio0mghfl" path="res://Sprites/Cursors/FireCursor.png" id="9_lq4js"]
 [ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="10_ktgjs"]
 [ext_resource type="Texture2D" uid="uid://5vmiaxyntbsv" path="res://Sprites/Fireball_68x9.png" id="11_janyi"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="12_b6iv5"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="12_nyrpx"]
+[ext_resource type="Script" path="res://Levels/Floor.gd" id="13_m1kfo"]
 [ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/UniversalScenes/PauseMenu.tscn" id="13_q6yh1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bao77"]
-size = Vector2(136, 1156)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67kf4"]
 bounce = 1.0
@@ -533,36 +532,6 @@ region_rect = Rect2(0, 0, 1500, 443.35)
 
 [node name="Game" type="Node" parent="."]
 
-[node name="Wall" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(-10, 10)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall"]
-position = Vector2(-58, 315)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall2" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
-position = Vector2(-20, 20)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall2"]
-position = Vector2(695.998, -597.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall3" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(-22, -651)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall3"]
-position = Vector2(584.998, -596.002)
-shape = SubResource("RectangleShape2D_bao77")
-
-[node name="Wall4" type="StaticBody2D" parent="Game" groups=["wall"]]
-position = Vector2(1165, 24)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Wall4"]
-position = Vector2(56, 307)
-shape = SubResource("RectangleShape2D_bao77")
-
 [node name="Circle" parent="Game" groups=["ball"] instance=ExtResource("3_epw7y")]
 position = Vector2(550, 280)
 physics_material_override = SubResource("PhysicsMaterial_67kf4")
@@ -599,6 +568,7 @@ lifetime = 0.8
 
 [node name="Cursor" type="RigidBody2D" parent="Game" groups=["Player"]]
 top_level = true
+position = Vector2(253, 145)
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_x106l")
 gravity_scale = 0.0
@@ -617,8 +587,9 @@ shape = SubResource("RectangleShape2D_qo2xx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Cursor"]
 z_index = 2
-scale = Vector2(0.300314, 0.300314)
-texture = ExtResource("9_basy1")
+rotation = 1.5708
+scale = Vector2(0.054, 0.054)
+texture = ExtResource("9_lq4js")
 
 [node name="Duration" type="Timer" parent="Game/Cursor"]
 wait_time = 4.0
@@ -660,6 +631,14 @@ polygon = PackedVector2Array(15, -1, 228, -88, 229, 86)
 [node name="FireInfernoTimer" type="Timer" parent="Game/Cursor"]
 wait_time = 0.2
 
+[node name="Walls" type="StaticBody2D" parent="Game" groups=["wall"]]
+collision_layer = 11
+script = ExtResource("12_nyrpx")
+
+[node name="Floor" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
+collision_layer = 11
+script = ExtResource("13_m1kfo")
+
 [node name="CanvasCursor" type="CanvasLayer" parent="."]
 process_mode = 2
 layer = 6
@@ -668,8 +647,9 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="CanvasCursor"]
 process_priority = 1
 top_level = true
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_basy1")
+rotation = 1.5708
+scale = Vector2(0.055, 0.055)
+texture = ExtResource("9_lq4js")
 script = ExtResource("12_b6iv5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

@@ -67,6 +67,7 @@ func useStasis() -> void:
 	toggleAbilityEffects(true)
 func stopStasis() -> void:
 	cooldown.start()
+	duration.stop()
 	fireballUsing = false
 	onCooldown = true
 	toggleAbilityEffects(false)
@@ -125,5 +126,6 @@ func _on_fire_inferno_timer_timeout():
 func _on_main_hud_fire_inferno():
 	infernoUnlcoked = true
 	fireballUnlcoked = false
+	infernoOnCooldown = true
 	#inferno.emit()
 	stopStasis()

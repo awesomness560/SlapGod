@@ -68,6 +68,7 @@ func useFireball() -> void:
 	fire.emit(true)
 func stopFireball() -> void:
 	cooldown.start()
+	duration.stop()
 	fireballUsing = false
 	onCooldown = true
 	fire.emit(false)
@@ -129,3 +130,4 @@ func _on_main_hud_fire_inferno():
 			ballEntered = true
 	inferno.emit()
 	stopFireball()
+	infernoOnCooldown = true

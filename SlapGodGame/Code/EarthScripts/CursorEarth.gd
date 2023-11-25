@@ -72,6 +72,7 @@ func useStasis() -> void:
 	toggleAbilityEffects(true)
 func stopStasis() -> void:
 	cooldown.start()
+	duration.stop()
 	fireballUsing = false
 	onCooldown = true
 	toggleAbilityEffects(false)
@@ -88,8 +89,12 @@ func toggleAbilityEffects(toggle : bool):
 func toggleUltimateEffects(toggle : bool):
 	if toggle:
 		$AmericaFireRate.start()
+		$Gun.visible = true
+		$Sprite2D.visible = false
 	elif !toggle:
 		$AmericaFireRate.stop()
+		$Gun.visible = false
+		$Sprite2D.visible = true
 		
 
 func _on_duration_timeout():
@@ -137,6 +142,7 @@ func _on_main_hud_fire_burn_rate():
 func _on_main_hud_fire_inferno():
 	infernoUnlcoked = true
 	fireballUnlcoked = false
+	infernoOnCooldown = true
 	#inferno.emit()
 	stopStasis()
 
@@ -148,3 +154,7 @@ func _on_america_fire_rate_timeout():
 		apply_impulse(dir * americaImpactForce * -1)
 		slap.emit()
 		slap.emit()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	position = Vector2(50, 50)

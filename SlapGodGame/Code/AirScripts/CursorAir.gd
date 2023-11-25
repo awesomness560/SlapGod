@@ -39,7 +39,7 @@ func _physics_process(delta):
 	#previousMousePosition = get_global_mouse_position()
 	
 func _integrate_forces(state):
-	set_angular_velocity((get_angle_to(get_parent().get_node("Circle").global_position)) * -((get_angle_to(get_parent().get_node("Circle").global_position)) -3.14) * 5)
+	set_angular_velocity((get_angle_to(get_tree().get_first_node_in_group("ball").global_position)) * -((get_angle_to(get_tree().get_first_node_in_group("ball").global_position)) -3.14) * 5)
 	
 func _process(delta):
 	if onCooldown:
@@ -63,6 +63,7 @@ func useStasis() -> void:
 	toggleAbilityEffects(true)
 func stopStasis() -> void:
 	cooldown.start()
+	duration.stop()
 	fireballUsing = false
 	onCooldown = true
 	toggleAbilityEffects(false)
@@ -119,5 +120,10 @@ func _on_main_hud_fire_burn_rate():
 func _on_main_hud_fire_inferno():
 	infernoUnlcoked = true
 	fireballUnlcoked = false
+	infernoOnCooldown = true
 	#inferno.emit()
 	stopStasis()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	position = Vector2(50, 50)

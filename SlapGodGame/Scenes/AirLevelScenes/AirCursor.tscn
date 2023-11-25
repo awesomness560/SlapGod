@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://k8wu6w1lesr1"]
+
+[ext_resource type="Script" path="res://Code/AirScripts/CursorAir.gd" id="1_i22hs"]
+[ext_resource type="Texture2D" uid="uid://dvlmtgpf0jf7o" path="res://Sprites/EmptyCursor.png" id="2_ig8ux"]
+[ext_resource type="Texture2D" uid="uid://dfatiliip2ck8" path="res://Sprites/Cursors/AirCursor.png" id="3_sxto5"]
+[ext_resource type="Texture2D" uid="uid://dpjjnlmb1kunq" path="res://Sprites/CircleBorder.png" id="4_ytwi1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x106l"]
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo2xx"]
+size = Vector2(52, 42)
+
+[node name="Cursor" type="RigidBody2D" groups=["Player"]]
+top_level = true
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_x106l")
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = 2
+linear_damp = 20.0
+script = ExtResource("1_i22hs")
+hit_force = 500.0
+empty_cursor = ExtResource("2_ig8ux")
+stiffness = 600
+damping = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_qo2xx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+rotation = 1.5708
+scale = Vector2(0.056, 0.056)
+texture = ExtResource("3_sxto5")
+
+[node name="Duration" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="CooldownBar" type="TextureProgressBar" parent="."]
+offset_left = -57.0
+offset_top = -60.0
+offset_right = 455.0
+offset_bottom = 452.0
+scale = Vector2(0.23, 0.23)
+pivot_offset = Vector2(0.03, 0)
+fill_mode = 4
+texture_progress = ExtResource("4_ytwi1")
+tint_progress = Color(1, 0, 0.0352941, 1)
+
+[node name="FireInfernoTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="timeout" from="Duration" to="." method="_on_duration_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="FireInfernoTimer" to="." method="_on_fire_inferno_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

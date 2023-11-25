@@ -35,3 +35,12 @@ res://Code/EarthScripts/MainHUDEarth.gd
 res://Code/EarthScripts/CursorEarth.gd
 res://Levels/EarthLevel.tscn
 res://Scenes/EarthScenes/circle.tscn
+res://Scenes/Boss.tscn
+res://Levels/BossRoom.tscn
+res://Levels/Wall.gd
+res://Levels/HandSpawner.gd
+res://Scenes/Hand.tscn
+res://Scenes/Hand.gd
+res://Scenes/AirLevelScenes/AirCursor.tscn
+res://Levels/Floor.gd
+res://Code/UniversalScripts/Wall.gd
