@@ -1,9 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca0leaffdjkyw"]
+[gd_scene load_steps=6 format=3 uid="uid://ca0leaffdjkyw"]
 
 [ext_resource type="Texture2D" uid="uid://c8wy6h4f7633u" path="res://Sprites/circle-512.png" id="1_4ft0l"]
+[ext_resource type="Texture2D" uid="uid://dk57268gjv20" path="res://Sprites/BossSprite.png" id="1_ouo1v"]
+[ext_resource type="Script" path="res://Scenes/BossDevil.gd" id="1_vlcsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw4t5"]
+size = Vector2(211, 206)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tmql2"]
+radius = 157.051
 
 [node name="Boss" type="Node2D"]
+script = ExtResource("1_vlcsa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.353, 0.353)
+scale = Vector2(0.223, 0.223)
+texture = ExtResource("1_ouo1v")
+
+[node name="Hitbox" type="StaticBody2D" parent="." groups=["ball", "boss"]]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2.5, -11)
+shape = SubResource("RectangleShape2D_dw4t5")
+
+[node name="FistAttack" type="Node" parent="."]
+
+[node name="FistAttackTime" type="Timer" parent="FistAttack"]
+wait_time = 3.0
+one_shot = true
+
+[node name="VulnerabiltyPhaseOne" type="Timer" parent="FistAttack"]
+wait_time = 3.0
+one_shot = true
+
+[node name="ForceField" type="StaticBody2D" parent="." groups=["forceField"]]
+position = Vector2(0, -20)
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForceField"]
+shape = SubResource("CircleShape2D_tmql2")
+
+[node name="Sprite2D" type="Sprite2D" parent="ForceField"]
+modulate = Color(0, 0.717647, 0.745098, 0.760784)
+z_index = -1
+scale = Vector2(0.615, 0.615)
 texture = ExtResource("1_4ft0l")
+
+[node name="PhaseTwo" type="Node" parent="."]
+
+[node name="Damage Phase" type="Timer" parent="PhaseTwo"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="FistAttack/FistAttackTime" to="." method="_on_fist_attack_time_timeout"]
+[connection signal="timeout" from="FistAttack/VulnerabiltyPhaseOne" to="." method="_on_vulnerabilty_phase_one_timeout"]
+[connection signal="timeout" from="PhaseTwo/Damage Phase" to="." method="_on_damage_phase_timeout"]

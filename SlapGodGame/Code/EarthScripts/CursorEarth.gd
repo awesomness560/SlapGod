@@ -1,5 +1,9 @@
 extends RigidBody2D
 signal slap
+signal damage(damage : int)
+
+@export var bossFight : bool = false
+@export var americaDamage : int = 2
 
 @export var americaImpactForce : int = 500
 @export var hit_force : float = 50.0
@@ -18,7 +22,7 @@ var previousMousePosition : Vector2 = Vector2(0,0)
 @export var secondBallClone : RigidBody2D
 @onready var ray : RayCast2D = $RayCast2D
 @export var ball : RigidBody2D
-var infernoUnlcoked : bool = false
+@export var infernoUnlcoked : bool = false
 var canUse : bool = true
 var fireballUsing : bool = false
 var onCooldown : bool = false
@@ -48,7 +52,7 @@ func _physics_process(delta):
 	#previousMousePosition = get_global_mouse_position()
 	
 func _integrate_forces(state):
-	set_angular_velocity((get_angle_to(get_parent().get_node("Circle").global_position)) * -((get_angle_to(get_parent().get_node("Circle").global_position)) -3.14) * 5)
+	set_angular_velocity((get_angle_to(get_tree().get_first_node_in_group("focus").global_position)) * -((get_angle_to(get_tree().get_first_node_in_group("focus").global_position)) -3.14) * 5)
 	
 func _process(delta):
 	if onCooldown:
@@ -98,7 +102,9 @@ func toggleUltimateEffects(toggle : bool):
 		
 
 func _on_duration_timeout():
-	stopStasis()
+	if fireballUnlcoked:
+		stopStasis()
+	onCooldown = true
 	infernoOnCooldown = true
 	isUsingInferno = false
 	toggleUltimateEffects(false)
@@ -149,11 +155,18 @@ func _on_main_hud_fire_inferno():
 
 func _on_america_fire_rate_timeout():
 	if ray.is_colliding():
-		var dir = ray.position.normalized() - ray.get_collision_normal()
-		ball.apply_impulse(dir * americaImpactForce)
-		apply_impulse(dir * americaImpactForce * -1)
-		slap.emit()
-		slap.emit()
+		var collider = ray.get_collider()
+		if collider.is_in_group("ball") && !bossFight:
+			var dir = ray.position.normalized() - ray.get_collision_normal()
+			if ball != null:
+				ball.apply_impulse(dir * americaImpactForce)
+			apply_impulse(dir * americaImpactForce * -1)
+			slap.emit()
+			slap.emit()
+		elif collider.is_in_group("boss"):
+			var dir = ray.position.normalized() - ray.get_collision_normal()
+			apply_impulse(dir * americaImpactForce * -1)
+			damage.emit(americaDamage)
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

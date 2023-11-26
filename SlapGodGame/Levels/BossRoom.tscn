@@ -1,11 +1,58 @@
-[gd_scene load_steps=8 format=3 uid="uid://62w0s3o2axn3"]
+[gd_scene load_steps=26 format=3 uid="uid://62w0s3o2axn3"]
 
 [ext_resource type="PackedScene" uid="uid://ca0leaffdjkyw" path="res://Scenes/Boss.tscn" id="1_dsua6"]
+[ext_resource type="Script" path="res://Levels/BossRoom.gd" id="1_txemj"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="2_c1imf"]
 [ext_resource type="PackedScene" uid="uid://k8wu6w1lesr1" path="res://Scenes/AirLevelScenes/AirCursor.tscn" id="6_y8hq8"]
+[ext_resource type="PackedScene" uid="uid://bpelvijxbuf6m" path="res://Scenes/EarthScenes/EarthCursor.tscn" id="7_lhr68"]
 [ext_resource type="Script" path="res://Code/BossScripts/HandSpawner.gd" id="7_w03tu"]
+[ext_resource type="PackedScene" uid="uid://b27k6tgaf5tto" path="res://Scenes/FireLevelScenes/FireCursor.tscn" id="8_7fcnu"]
 [ext_resource type="PackedScene" uid="uid://7gqv68n3ipk1" path="res://Scenes/Hand.tscn" id="8_g6pa0"]
+[ext_resource type="PackedScene" uid="uid://deovwc8gb37rk" path="res://Scenes/WaterLevelScenes/WaterCursor.tscn" id="9_10y1q"]
 [ext_resource type="Script" path="res://Code/BossScripts/Swapper.gd" id="9_wxeo2"]
+[ext_resource type="PackedScene" uid="uid://dpeh84nyb4dgw" path="res://Scenes/UniversalScenes/health_manager.tscn" id="10_23r64"]
+[ext_resource type="Script" path="res://Levels/BossBar.gd" id="11_j1q3j"]
+[ext_resource type="Texture2D" uid="uid://ccq4si5ihgq0g" path="res://Sprites/square.png" id="11_mhg3x"]
+[ext_resource type="Script" path="res://Levels/PhaseTwo.gd" id="13_1tx57"]
+[ext_resource type="PackedScene" uid="uid://b7csqot8a83uy" path="res://Scenes/AirLevelScenes/Circle.tscn" id="13_mald5"]
+[ext_resource type="Script" path="res://Code/AirScripts/CircleAir.gd" id="14_fjgbf"]
+[ext_resource type="Script" path="res://Levels/Floor.gd" id="15_fhsug"]
+
+[sub_resource type="Animation" id="Animation_4co67"]
+resource_name = "Phase2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(573, 166), Vector2(1043, 322)]
+}
+
+[sub_resource type="Animation" id="Animation_d2wg0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(573, 166)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5xi3"]
+_data = {
+"Phase2": SubResource("Animation_4co67"),
+"RESET": SubResource("Animation_d2wg0")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_7q5tp"]
 _data = {
@@ -13,34 +60,207 @@ _data = {
 }
 point_count = 5
 
-[node name="BossRoom" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sg0sv"]
+size = Vector2(69, 230)
 
-[node name="Circle" parent="." groups=["ball"] instance=ExtResource("1_dsua6")]
-position = Vector2(576, 68)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6ce3"]
+size = Vector2(69, 164)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibp37"]
+size = Vector2(65, 165)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipqlg"]
+size = Vector2(65, 264)
+
+[node name="BossRoom" type="Node2D"]
+script = ExtResource("1_txemj")
+
+[node name="Circle" parent="." node_paths=PackedStringArray("healthBar", "handSpawnRate", "animation") groups=["boss", "focus"] instance=ExtResource("1_dsua6")]
+position = Vector2(573, 166)
 scale = Vector2(0.702548, 0.702548)
+healthBar = NodePath("../BossBar/BossProgressBar")
+handSpawnRate = NodePath("../HandSpawning/HandSpawnRate")
+animation = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Circle"]
+libraries = {
+"": SubResource("AnimationLibrary_l5xi3")
+}
 
 [node name="Wall" type="StaticBody2D" parent="."]
 script = ExtResource("2_c1imf")
 
-[node name="HandSpawning" type="Node" parent="."]
+[node name="HandSpawning" type="Node" parent="." node_paths=PackedStringArray("healthManager")]
+process_mode = 4
 script = ExtResource("7_w03tu")
 handScene = ExtResource("8_g6pa0")
 speed = Vector2(800, 1000)
+healthManager = NodePath("../HealthManager")
 
 [node name="HandPath" type="Path2D" parent="HandSpawning"]
 curve = SubResource("Curve2D_7q5tp")
 
 [node name="HandSpawnLocation" type="PathFollow2D" parent="HandSpawning/HandPath"]
 
-[node name="HandSpawnRate" type="Timer" parent="."]
+[node name="HandSpawnRate" type="Timer" parent="HandSpawning"]
 wait_time = 0.5
 autostart = true
 
-[node name="Swapper" type="Node" parent="."]
+[node name="Swapper" type="Node" parent="." node_paths=PackedStringArray("cursorsPossible")]
 script = ExtResource("9_wxeo2")
+cursorsPossible = [NodePath("FireCursor"), NodePath("AirCursor"), NodePath("EarthCursor"), NodePath("WaterCursor")]
+fireCursorUnlocked = true
+earthCursorUnlocked = true
+waterCursorUnlocked = true
+airCursorUnlocked = true
 
-[node name="Cursor" parent="Swapper" instance=ExtResource("6_y8hq8")]
-position = Vector2(132, 148)
+[node name="AirCursor" parent="Swapper" instance=ExtResource("6_y8hq8")]
+process_mode = 4
+position = Vector2(161, 127)
 collision_layer = 3
+infernoUnlcoked = true
 
-[connection signal="timeout" from="HandSpawnRate" to="HandSpawning" method="_on_hand_spawn_rate_timeout"]
+[node name="EarthCursor" parent="Swapper" instance=ExtResource("7_lhr68")]
+process_mode = 4
+position = Vector2(161, 127)
+collision_layer = 3
+bossFight = true
+infernoUnlcoked = true
+
+[node name="FireCursor" parent="Swapper" instance=ExtResource("8_7fcnu")]
+position = Vector2(140, 81)
+collision_layer = 3
+bossBattle = true
+infernoUnlcoked = true
+
+[node name="WaterCursor" parent="Swapper" instance=ExtResource("9_10y1q")]
+process_mode = 4
+visible = false
+position = Vector2(161, 127)
+collision_layer = 3
+bossFight = true
+infernoUnlcoked = true
+
+[node name="HealthManager" parent="." node_paths=PackedStringArray("cursor") instance=ExtResource("10_23r64")]
+cursor = NodePath("../Swapper/FireCursor")
+
+[node name="BossBar" type="Node" parent="." node_paths=PackedStringArray("healthBar")]
+script = ExtResource("11_j1q3j")
+healthBar = NodePath("BossProgressBar")
+
+[node name="BossProgressBar" type="TextureProgressBar" parent="BossBar"]
+top_level = true
+z_index = 1
+offset_left = 370.0
+offset_right = 595.0
+offset_bottom = 225.0
+scale = Vector2(1.76, 0.16)
+step = 0.1
+value = 100.0
+texture_progress = ExtResource("11_mhg3x")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.784314, 0, 0.0862745, 1)
+
+[node name="PhaseTwo" type="Node" parent="." node_paths=PackedStringArray("walls")]
+process_mode = 4
+script = ExtResource("13_1tx57")
+walls = [NodePath("FirstWall/StaticBody2D"), NodePath("FirstWall/StaticBody2D2"), NodePath("FirstWall2/StaticBody2D"), NodePath("FirstWall2/StaticBody2D2")]
+
+[node name="Circle" parent="PhaseTwo" instance=ExtResource("13_mald5")]
+visible = false
+position = Vector2(167, 347)
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("14_fjgbf")
+bossFight = true
+
+[node name="Sprite2D" parent="PhaseTwo/Circle" index="0"]
+scale = Vector2(0.123, 0.123)
+
+[node name="FirstWall" type="Node" parent="PhaseTwo"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PhaseTwo/FirstWall" groups=["obstacle"]]
+visible = false
+collision_layer = 8
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="PhaseTwo/FirstWall/StaticBody2D"]
+position = Vector2(408, 114.937)
+scale = Vector2(0.307778, 1.03167)
+texture = ExtResource("11_mhg3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhaseTwo/FirstWall/StaticBody2D"]
+position = Vector2(407.5, 115)
+shape = SubResource("RectangleShape2D_sg0sv")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="PhaseTwo/FirstWall" groups=["obstacle"]]
+visible = false
+position = Vector2(0, 394)
+collision_layer = 8
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="PhaseTwo/FirstWall/StaticBody2D2"]
+position = Vector2(408, 174.562)
+scale = Vector2(0.307778, 0.733889)
+texture = ExtResource("11_mhg3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhaseTwo/FirstWall/StaticBody2D2"]
+position = Vector2(407.5, 174)
+shape = SubResource("RectangleShape2D_n6ce3")
+
+[node name="FirstWall2" type="Node" parent="PhaseTwo"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PhaseTwo/FirstWall2" groups=["obstacle"]]
+visible = false
+position = Vector2(279, 1)
+collision_layer = 8
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="PhaseTwo/FirstWall2/StaticBody2D"]
+position = Vector2(408, 84.4375)
+scale = Vector2(0.307778, 0.760556)
+texture = ExtResource("11_mhg3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhaseTwo/FirstWall2/StaticBody2D"]
+position = Vector2(409.5, 82.5)
+shape = SubResource("RectangleShape2D_ibp37")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="PhaseTwo/FirstWall2" groups=["obstacle"]]
+visible = false
+position = Vector2(287, 389)
+collision_layer = 8
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="PhaseTwo/FirstWall2/StaticBody2D2"]
+position = Vector2(408, 122.562)
+scale = Vector2(0.307778, 1.19611)
+texture = ExtResource("11_mhg3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhaseTwo/FirstWall2/StaticBody2D2"]
+position = Vector2(409.5, 124)
+shape = SubResource("RectangleShape2D_ipqlg")
+
+[node name="Marker2D" type="Marker2D" parent="PhaseTwo"]
+position = Vector2(151, 329)
+
+[node name="Floor" type="StaticBody2D" parent="." groups=["floor", "wall"]]
+script = ExtResource("15_fhsug")
+
+[connection signal="startPhase2" from="Circle" to="PhaseTwo" method="phaseTwoStart"]
+[connection signal="stopPhase2" from="Circle" to="PhaseTwo" method="phaseTwoEnd"]
+[connection signal="timeout" from="HandSpawning/HandSpawnRate" to="HandSpawning" method="_on_hand_spawn_rate_timeout"]
+[connection signal="damage" from="Swapper/EarthCursor" to="BossBar" method="decreaseHealth"]
+[connection signal="damage" from="Swapper/FireCursor" to="BossBar" method="decreaseHealth"]
+[connection signal="heal" from="Swapper/WaterCursor" to="HealthManager" method="increaseHealth"]
+[connection signal="noHealth" from="BossBar" to="." method="onDeath"]
+[connection signal="phase2" from="BossBar" to="Circle" method="stopPhaseOne"]
+[connection signal="reset" from="PhaseTwo" to="PhaseTwo/Circle" method="_on_phase_two_reset"]
+[connection signal="body_exited" from="PhaseTwo/Circle" to="PhaseTwo/Circle" method="_on_body_exited"]
+[connection signal="hit" from="PhaseTwo/Circle" to="Circle" method="pausePhaseTwo"]
+[connection signal="restart" from="PhaseTwo/Circle" to="PhaseTwo" method="restartBall"]
+
+[editable path="Swapper/AirCursor"]
+[editable path="Swapper/EarthCursor"]
+[editable path="Swapper/FireCursor"]
+[editable path="Swapper/WaterCursor"]
+[editable path="PhaseTwo/Circle"]

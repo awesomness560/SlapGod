@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bukcgtokcup4g"]
 
-[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="2_8essy"]
 [ext_resource type="PackedScene" uid="uid://dc7q0p1qiiut2" path="res://Scenes/AirLevelScenes/MainHUD.tscn" id="2_eratj"]
 [ext_resource type="Script" path="res://Code/AirScripts/MainHUDAir.gd" id="3_ayl7d"]
+[ext_resource type="Texture2D" uid="uid://ht84bgbkew2d" path="res://Sprites/Backgrounds/AirBackground.png" id="3_th7by"]
 [ext_resource type="PackedScene" uid="uid://k8wu6w1lesr1" path="res://Scenes/AirLevelScenes/AirCursor.tscn" id="4_ti5e6"]
 [ext_resource type="Texture2D" uid="uid://dfatiliip2ck8" path="res://Sprites/Cursors/AirCursor.png" id="6_vedk7"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="7_jb6q6"]
@@ -33,22 +33,23 @@ show_behind_parent = true
 visibility_layer = 2
 z_index = -2
 texture_repeat = 2
-position = Vector2(623.12, 323.557)
-scale = Vector2(0.963749, 1.46899)
-texture = ExtResource("2_8essy")
+position = Vector2(575, 324)
+scale = Vector2(1.87917, 1.75726)
+texture = ExtResource("3_th7by")
 region_enabled = true
-region_rect = Rect2(0, 0, 1500, 443.35)
+region_rect = Rect2(0, 0, 629.179, 379.522)
 
 [node name="Game" type="Node" parent="."]
 
 [node name="Cursor" parent="Game" instance=ExtResource("4_ti5e6")]
 position = Vector2(148, 121)
 
-[node name="Circle" parent="Game" groups=["ball"] instance=ExtResource("13_v00hk")]
+[node name="Circle" parent="Game" groups=["ball", "focus"] instance=ExtResource("13_v00hk")]
 position = Vector2(621, 390)
 physics_material_override = SubResource("PhysicsMaterial_jds5t")
 freeze_mode = 1
 script = ExtResource("14_mhp2u")
+bossFight = false
 mat = SubResource("PhysicsMaterial_jds5t")
 
 [node name="Walls" type="StaticBody2D" parent="Game" groups=["wall"]]
@@ -80,6 +81,11 @@ environment = SubResource("Environment_5ycui")
 [node name="PauseMenu" parent="." instance=ExtResource("13_yk1fd")]
 process_mode = 3
 
+[connection signal="abilityCooldown" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_cooldown"]
+[connection signal="abilityDuration" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball_duration"]
+[connection signal="fireBurnRate" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_burn_rate"]
+[connection signal="ghost" from="MainHud" to="Game/Cursor" method="_on_main_hud_fire_inferno"]
+[connection signal="stasisUnlock" from="MainHud" to="Game/Cursor" method="_on_main_hud_fireball"]
 [connection signal="airTimeFail" from="Game/Circle" to="MainHud" method="_on_circle_air_time_fail"]
 [connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]

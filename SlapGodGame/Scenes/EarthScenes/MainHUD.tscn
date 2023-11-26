@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="2_brjkw"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="3_jnojm"]
 [ext_resource type="Texture2D" uid="uid://crqj3umspe0nl" path="res://Sprites/FireWithStuff.png" id="4_w4c4j"]
-[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/LavaBackground.png" id="5_0neme"]
+[ext_resource type="Texture2D" uid="uid://c36bviya6mcq7" path="res://Sprites/Backgrounds/LavaBackground.png" id="5_0neme"]
 
 [sub_resource type="Animation" id="Animation_tprfo"]
 length = 0.001

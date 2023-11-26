@@ -2,6 +2,10 @@ extends RigidBody2D
 signal scored
 signal airTimeFail
 signal velocity(speed : Vector2)
+signal hit
+signal restart
+
+@export var bossFight : bool = false
 @onready var fire1 : GPUParticles2D = $Fire1
 @onready var fire2 : GPUParticles2D = $Fire2
 @onready var smoke : GPUParticles2D = $Smoke
@@ -10,6 +14,8 @@ var entered : bool = true
 @export var max_speed = 100
 @export var mat : PhysicsMaterial
 var bounce : float
+
+var reset : bool = false
 
 
 func _ready():
@@ -27,6 +33,10 @@ func _on_body_entered(body):
 		mat.bounce = bounce
 		if body.is_in_group("floor"):
 			airTimeFail.emit()
+	if bossFight && body.is_in_group("forceField"):
+		hit.emit()
+	if bossFight && body.is_in_group("obstacle"):
+		restart.emit()
 
 
 func _on_body_exited(body):
@@ -39,3 +49,11 @@ func particles(state : bool):
 	fire1.emitting = state
 	fire2.emitting = state
 	smoke.emitting = state
+
+func _integrate_forces(state):
+	if reset:
+		state.transform = Transform2D(0, Vector2(151, 329))
+		reset = false
+
+func _on_phase_two_reset():
+	reset = true

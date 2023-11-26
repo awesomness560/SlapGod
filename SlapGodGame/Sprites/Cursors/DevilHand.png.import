@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c36bviya6mcq7"
-path="res://.godot/imported/LavaBackground.png-61f4289c98cbd5bd79bacbe4b13a2308.ctex"
+uid="uid://bn0ryxr514wq7"
+path="res://.godot/imported/DevilHand.png-2822c797dd23bae402722f56fc68701c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/LavaBackground.png"
-dest_files=["res://.godot/imported/LavaBackground.png-61f4289c98cbd5bd79bacbe4b13a2308.ctex"]
+source_file="res://Sprites/Cursors/DevilHand.png"
+dest_files=["res://.godot/imported/DevilHand.png-2822c797dd23bae402722f56fc68701c.ctex"]
 
 [params]
 

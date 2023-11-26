@@ -3,6 +3,11 @@ extends Node
 @export var handScene : PackedScene
 @export var speed : Vector2 = Vector2(350, 550)
 
+const EMITTER = preload("res://Scenes/Hand.tscn")
+const RECIVER = preload("res://Levels/HealthManager.gd")
+
+@export var healthManager : Node
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -15,6 +20,7 @@ func _process(delta):
 
 func _on_hand_spawn_rate_timeout():
 	var mob = handScene.instantiate()
+	mob.connect("hit", healthManager.decreaseHealth)
 
 	# Choose a random location on Path2D.
 	var mob_spawn_location = $HandPath/HandSpawnLocation

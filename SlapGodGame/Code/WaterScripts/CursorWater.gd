@@ -1,8 +1,11 @@
 extends RigidBody2D
 signal slap
+signal heal(healAmount)
 
 var health : float = 100
 @export var healIncrease : int = 25
+@export var bossFight : bool = false
+@export var healAmount : int = 25
 
 @export var hit_force : float = 50.0
 var previousMousePosition : Vector2 = Vector2(0,0)
@@ -16,7 +19,7 @@ var previousMousePosition : Vector2 = Vector2(0,0)
 @export var fireDurationIncrease : int = 4
 @export var fireCooldownDecrease : int = 2
 @export var fireBurnRateChange : float = 0.25
-var infernoUnlcoked : bool = false
+@export var infernoUnlcoked : bool = false
 var canUse : bool = true
 var fireballUsing : bool = false
 var onCooldown : bool = false
@@ -43,7 +46,7 @@ func _physics_process(delta):
 	#previousMousePosition = get_global_mouse_position()
 	
 func _integrate_forces(state):
-	set_angular_velocity((get_angle_to(get_parent().get_node("Circle").global_position)) * -((get_angle_to(get_parent().get_node("Circle").global_position)) -3.14) * 5)
+	set_angular_velocity((get_angle_to(get_tree().get_first_node_in_group("focus").global_position)) * -((get_angle_to(get_tree().get_first_node_in_group("focus").global_position)) -3.14) * 5)
 	
 func _process(delta):
 	if onCooldown:
@@ -80,7 +83,8 @@ func toggleAbilityEffects(toggle : bool):
 		$FireInfernoTimer.stop()
 	
 func toggleUltimateEffects(toggle : bool):
-	$CollisionShape2D.disabled = toggle
+	if bossFight:
+		heal.emit(healAmount)
 
 func _on_duration_timeout():
 	stopStasis()
@@ -129,3 +133,7 @@ func _on_main_hud_fire_inferno():
 	infernoOnCooldown = true
 	#inferno.emit()
 	stopStasis()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	position = Vector2(50, 50)
