@@ -78,8 +78,14 @@ glow_blend_mode = 1
 process_mode = 1
 
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_tmapw")]
-multiplierCost = [10, 500, 1000]
 ball = NodePath("../Game/Circle")
+airTimeMultiplierAddition = 0.5
+speedDivider = 500.0
+costOfFireball = 5
+costOfDuration = 5000
+costOfBurnRate = 5000
+costOfCooldown = 5000
+costOfInferno = 20000
 
 [node name="FireBackground2" type="Sprite2D" parent="."]
 process_priority = -1
@@ -168,5 +174,6 @@ process_mode = 3
 [connection signal="body_exited" from="Game/Circle" to="Game/Circle" method="_on_body_exited"]
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
 [connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
+[connection signal="fire" from="Game/Cursor" to="Game/Circle" method="particles"]
 [connection signal="slap" from="Game/Cursor" to="MainHud" method="scored"]
 [connection signal="paused" from="PauseMenu" to="MainHud" method="_on_pause_menu"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bukcgtokcup4g"]
+[gd_scene load_steps=15 format=3 uid="uid://bukcgtokcup4g"]
 
 [ext_resource type="PackedScene" uid="uid://dc7q0p1qiiut2" path="res://Scenes/AirLevelScenes/MainHUD.tscn" id="2_eratj"]
 [ext_resource type="Script" path="res://Code/AirScripts/MainHUDAir.gd" id="3_ayl7d"]
@@ -15,6 +15,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jds5t"]
 bounce = 1.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6cx7w"]
+radius = 86.2844
+
 [sub_resource type="Environment" id="Environment_5ycui"]
 background_mode = 3
 glow_enabled = true
@@ -26,6 +29,13 @@ process_mode = 1
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("2_eratj")]
 script = ExtResource("3_ayl7d")
 ball = NodePath("../Game/Circle")
+airTimeMultiplierAddition = 0.5
+speedDivider = 500.0
+costOfFireball = 1500
+costOfDuration = 5000
+costOfBurnRate = 5000
+costOfCooldown = 5000
+costOfInferno = 20000
 
 [node name="FireBackground2" type="Sprite2D" parent="."]
 process_priority = -1
@@ -51,6 +61,9 @@ freeze_mode = 1
 script = ExtResource("14_mhp2u")
 bossFight = false
 mat = SubResource("PhysicsMaterial_jds5t")
+
+[node name="CollisionShape2D" parent="Game/Circle" index="1"]
+shape = SubResource("CircleShape2D_6cx7w")
 
 [node name="Walls" type="StaticBody2D" parent="Game" groups=["wall"]]
 collision_layer = 11
@@ -91,3 +104,5 @@ process_mode = 3
 [connection signal="scored" from="Game/Circle" to="MainHud" method="scored"]
 [connection signal="velocity" from="Game/Circle" to="MainHud" method="_on_circle_velocity"]
 [connection signal="paused" from="PauseMenu" to="MainHud" method="_on_pause_menu"]
+
+[editable path="Game/Circle"]

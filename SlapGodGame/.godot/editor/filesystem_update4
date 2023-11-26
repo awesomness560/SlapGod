@@ -26,3 +26,11 @@ res://Scenes/Laser.tscn
 res://Scenes/Laser.gd
 res://Scenes/Laser2.gd
 res://Levels/BossRoom.gd
+res://Levels/MainScene.tscn
+res://Scenes/AirLevelScenes/MainHUD.tscn
+res://Levels/MainScene.gd
+res://Scenes/UniversalScenes/PauseMenu.tscn
+res://Code/UniversalScripts/PauseMenu.gd
+res://Code/EarthScripts/MainHUDEarth.gd
+res://Code/AirScripts/MainHUDAir.gd
+res://Code/WaterScripts/MainHUDWater.gd

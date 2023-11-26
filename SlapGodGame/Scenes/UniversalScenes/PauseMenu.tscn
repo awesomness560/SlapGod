@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3wearkgkkq07"]
+[gd_scene load_steps=8 format=3 uid="uid://b3wearkgkkq07"]
 
 [ext_resource type="Script" path="res://Code/UniversalScripts/PauseMenu.gd" id="1_fdjx3"]
 [ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="2_e7f4q"]
+[ext_resource type="PackedScene" uid="uid://dvxqd4dk0yns8" path="res://Levels/MainScene.tscn" id="2_iogla"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="3_gyvdr"]
 
 [sub_resource type="Animation" id="Animation_oa0kb"]
@@ -66,11 +67,12 @@ _data = {
 }
 
 [node name="PauseMenu" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_fdjx3")
+menu = ExtResource("2_iogla")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

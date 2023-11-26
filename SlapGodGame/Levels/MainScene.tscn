@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvxqd4dk0yns8"]
+
+[ext_resource type="Script" path="res://Levels/MainScene.gd" id="1_6u5a0"]
+[ext_resource type="PackedScene" uid="uid://cf0ukerjc7fhp" path="res://Levels/EarthLevel.tscn" id="2_uf6o4"]
+[ext_resource type="PackedScene" uid="uid://bukcgtokcup4g" path="res://Levels/AirLevel.tscn" id="3_ohk2w"]
+[ext_resource type="PackedScene" uid="uid://dqfxmo3x3x70e" path="res://Levels/FireLevel.tscn" id="4_mea35"]
+[ext_resource type="PackedScene" uid="uid://5pgolkrusawx" path="res://Levels/WaterLevel.tscn" id="5_q4mxy"]
+[ext_resource type="PackedScene" uid="uid://cr51tjwhj7et4" path="res://Levels/menu.tscn" id="6_a7v51"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_6u5a0")
+Earth = ExtResource("2_uf6o4")
+Air = ExtResource("3_ohk2w")
+Fire = ExtResource("4_mea35")
+Water = ExtResource("5_q4mxy")
+Menu = ExtResource("6_a7v51")
+
+[node name="Menu" parent="." instance=ExtResource("6_a7v51")]
+
+[node name="Earth" parent="Menu" index="0"]
+theme_override_font_sizes/font_size = 25
+
+[node name="Fire" parent="Menu" index="1"]
+theme_override_font_sizes/font_size = 25
+
+[node name="Water" parent="Menu" index="2"]
+theme_override_font_sizes/font_size = 25
+
+[node name="Air" parent="Menu" index="3"]
+theme_override_font_sizes/font_size = 25
+
+[connection signal="pressed" from="Menu/Earth" to="." method="_on_earth_pressed"]
+[connection signal="pressed" from="Menu/Fire" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="Menu/Water" to="." method="_on_water_pressed"]
+[connection signal="pressed" from="Menu/Air" to="." method="_on_air_pressed"]
+
+[editable path="Menu"]

@@ -79,8 +79,10 @@ func toggleAbilityEffects(toggle : bool):
 	infernoTimerStarted = toggle
 	if toggle:
 		$FireInfernoTimer.start()
+		get_parent().get_node("FloodColor").visible = true
 	elif !toggle:
 		$FireInfernoTimer.stop()
+		get_parent().get_node("FloodColor").visible = false
 	
 func toggleUltimateEffects(toggle : bool):
 	if bossFight:

@@ -55,6 +55,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	checkForUpgradeMenu()
+	if score >= 100000:
+		get_tree().quit()
 	if damageMenuOnScreen or menuOnScreen:
 		pause(true)
 	elif !menuOnScreen and !isPaused:

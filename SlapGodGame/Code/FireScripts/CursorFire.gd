@@ -141,7 +141,7 @@ func _on_main_hud_fire_inferno():
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	position = get_global_mouse_position()
+	position = Vector2(100, 100)
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

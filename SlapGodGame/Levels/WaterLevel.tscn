@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://5pgolkrusawx"]
+[gd_scene load_steps=14 format=3 uid="uid://5pgolkrusawx"]
 
 [ext_resource type="PackedScene" uid="uid://diu8nm0fhumty" path="res://Scenes/WaterLevelScenes/MainHUD.tscn" id="1_82tdx"]
 [ext_resource type="Script" path="res://Code/WaterScripts/MainHUDWater.gd" id="2_7oahj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b7fvrekr64jq2" path="res://Sprites/Cursors/WaterCursor.png" id="6_x6j4b"]
 [ext_resource type="PackedScene" uid="uid://lhwqbdt23hwo" path="res://Scenes/WaterLevelScenes/Circle.tscn" id="7_3v613"]
 [ext_resource type="Script" path="res://Code/WaterScripts/CircleWater.gd" id="8_a5j40"]
+[ext_resource type="Texture2D" uid="uid://ccq4si5ihgq0g" path="res://Sprites/square.png" id="9_ohckj"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/CanvasFollow.gd" id="10_81pnl"]
 [ext_resource type="Script" path="res://Code/UniversalScripts/Wall.gd" id="10_cndm6"]
 [ext_resource type="PackedScene" uid="uid://b3wearkgkkq07" path="res://Scenes/UniversalScenes/PauseMenu.tscn" id="11_tcu7d"]
@@ -23,6 +24,13 @@ process_mode = 1
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_82tdx")]
 script = ExtResource("2_7oahj")
 ball = NodePath("../Game/Circle")
+airTimeMultiplierAddition = 0.5
+speedDivider = 500.0
+costOfFireball = 1500
+costOfDuration = 5000
+costOfBurnRate = 5000
+costOfCooldown = 5000
+costOfInferno = 20000
 
 [node name="FireBackground2" type="Sprite2D" parent="."]
 process_priority = -1
@@ -51,6 +59,15 @@ script = ExtResource("10_cndm6")
 [node name="Floor" type="StaticBody2D" parent="Game" groups=["floor", "wall"]]
 collision_layer = 11
 script = ExtResource("11_tswaa")
+
+[node name="FloodColor" type="TextureRect" parent="Game"]
+visible = false
+modulate = Color(0.211765, 0.211765, 1, 0.678431)
+offset_left = -213.0
+offset_top = -114.0
+offset_right = 1444.0
+offset_bottom = 774.0
+texture = ExtResource("9_ohckj")
 
 [node name="CanvasCursor" type="CanvasLayer" parent="."]
 process_mode = 2

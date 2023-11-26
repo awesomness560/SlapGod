@@ -28,6 +28,13 @@ process_mode = 1
 
 [node name="MainHud" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("1_fr3rb")]
 ball = NodePath("../Game/Circle")
+airTimeMultiplierAddition = 0.5
+speedDivider = 500.0
+costOfFireball = 1500
+costOfDuration = 5000
+costOfBurnRate = 5000
+costOfCooldown = 5000
+costOfInferno = 20000
 
 [node name="FireBackground2" type="Sprite2D" parent="."]
 process_priority = -1

@@ -1,3 +1,5 @@
+CanvasLayer
+TextureRect
 RayCast2D
 Marker2D
 Sprite2D
@@ -9,7 +11,4 @@ Timer
 StaticBody2D
 AnimationPlayer
 TextureProgressBar
-CanvasLayer
 ProgressBar
-VisibleOnScreenNotifier2D
-RigidBody2D

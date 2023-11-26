@@ -1,6 +1,7 @@
 extends CanvasLayer
 signal paused(pauseState : bool)
 
+@export var menu : PackedScene
 var isPaused : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -10,6 +11,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	checkForPause()
+	if Input.is_action_just_pressed("mainMenu"):
+		print("Menu Pressed")
+		get_tree().change_scene_to_packed(menu)
 
 func checkForPause():
 	if Input.is_action_just_pressed("Pause") && !isPaused:

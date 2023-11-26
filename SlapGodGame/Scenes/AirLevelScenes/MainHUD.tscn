@@ -981,6 +981,7 @@ offset_right = 363.0
 offset_bottom = 400.0
 
 [node name="UpgradeBurnRate" type="Button" parent="DamageMenu/FireBurnRate"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.15
@@ -1007,6 +1008,7 @@ libraries = {
 }
 
 [node name="FireBurnRate" type="Label" parent="DamageMenu/FireBurnRate"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.397
@@ -1028,6 +1030,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FireBurnRateCost" type="Label" parent="DamageMenu/FireBurnRate"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.433

@@ -1,0 +1,171 @@
+[gd_scene load_steps=6 format=3 uid="uid://cr51tjwhj7et4"]
+
+[ext_resource type="FontFile" uid="uid://1ps4b0cd4y2i" path="res://Fonts/CompassPro.ttf" id="1_nry6t"]
+[ext_resource type="Script" path="res://Code/UniversalScripts/ButtonHover.gd" id="2_hyxp7"]
+
+[sub_resource type="Animation" id="Animation_oa0kb"]
+resource_name = "HoverAnimation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [25, 30]
+}
+
+[sub_resource type="Animation" id="Animation_bm8to"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [25]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcyo8"]
+_data = {
+"HoverAnimation": SubResource("Animation_oa0kb"),
+"RESET": SubResource("Animation_bm8to")
+}
+
+[node name="Menu" type="CanvasLayer"]
+
+[node name="Earth" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.347
+anchor_right = 0.61
+anchor_bottom = 0.188
+offset_left = 0.255981
+offset_top = -4.0
+offset_right = 0.279968
+offset_bottom = 0.175995
+pivot_offset = Vector2(155, 65)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("1_nry6t")
+theme_override_font_sizes/font_size = 100
+text = "Earth"
+flat = true
+script = ExtResource("2_hyxp7")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="Earth"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="Fire" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.347
+anchor_top = 0.222
+anchor_right = 0.61
+anchor_bottom = 0.417
+offset_left = 0.255981
+offset_top = 0.143982
+offset_right = 0.279968
+offset_bottom = -0.216003
+pivot_offset = Vector2(155, 65)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("1_nry6t")
+theme_override_font_sizes/font_size = 100
+text = "Fire"
+flat = true
+script = ExtResource("2_hyxp7")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="Fire"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="Water" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.347
+anchor_top = 0.491
+anchor_right = 0.61
+anchor_bottom = 0.685
+offset_left = 0.255981
+offset_top = -0.167969
+offset_right = 0.279968
+offset_bottom = 0.119781
+pivot_offset = Vector2(155, 60)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("1_nry6t")
+theme_override_font_sizes/font_size = 100
+text = "Water"
+flat = true
+script = ExtResource("2_hyxp7")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="Water"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[node name="Air" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.346
+anchor_top = 0.752
+anchor_right = 0.609
+anchor_bottom = 0.946
+offset_left = 0.40799
+offset_top = -0.295959
+offset_right = 0.431946
+offset_bottom = -0.00811768
+pivot_offset = Vector2(150.47, 61.375)
+theme_override_colors/font_outline_color = Color(1, 0, 0.172549, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("1_nry6t")
+theme_override_font_sizes/font_size = 100
+text = "Air"
+flat = true
+script = ExtResource("2_hyxp7")
+
+[node name="HoverAnimator" type="AnimationPlayer" parent="Air"]
+libraries = {
+"": SubResource("AnimationLibrary_bcyo8")
+}
+
+[connection signal="mouse_entered" from="Earth" to="Earth" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Earth" to="Earth" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Fire" to="Fire" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Fire" to="Fire" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Water" to="Water" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Water" to="Water" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Air" to="Air" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Air" to="Air" method="_on_mouse_exited"]
